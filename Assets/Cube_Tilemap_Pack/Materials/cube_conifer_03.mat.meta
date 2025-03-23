@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 16528d3166ee0e34688af0da29c5b01a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/cube_conifer_03.mat
+  uploadId: 623701

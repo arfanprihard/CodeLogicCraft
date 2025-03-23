@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7d4b2fc0d4d0c644faed0ffb4c88fe59
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/Cube_rock_04.mat
+  uploadId: 623701

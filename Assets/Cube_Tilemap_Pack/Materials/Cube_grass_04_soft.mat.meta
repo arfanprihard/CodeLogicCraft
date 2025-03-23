@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1f1575ba3045c4d43b0d935726675da7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/Cube_grass_04_soft.mat
+  uploadId: 623701

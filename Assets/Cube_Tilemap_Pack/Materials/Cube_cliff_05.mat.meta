@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d2f1ac67d32c8ff47a62749ee50587e2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/Cube_cliff_05.mat
+  uploadId: 623701

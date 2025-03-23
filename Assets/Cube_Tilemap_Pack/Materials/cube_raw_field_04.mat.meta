@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ae5365124b3472c4e9a47aadb22a16a6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/cube_raw_field_04.mat
+  uploadId: 623701

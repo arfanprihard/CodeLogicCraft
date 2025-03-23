@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 388a71bcdea436c45a79c34fc4cfc8c4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/cube_round_tree_stump_03.mat
+  uploadId: 623701

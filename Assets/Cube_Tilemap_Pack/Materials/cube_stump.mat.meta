@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2d9373c3fd6e7c04a82fbb2f2c3232ba
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/cube_stump.mat
+  uploadId: 623701

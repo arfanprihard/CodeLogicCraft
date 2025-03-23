@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 75b1c3ac032966b4f96caa630320bda7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/Cube_rock_moss_01.mat
+  uploadId: 623701

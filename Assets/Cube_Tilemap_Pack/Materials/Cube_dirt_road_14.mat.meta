@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 37bbc2f03e44e83418099e9556aa6212
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/Cube_dirt_road_14.mat
+  uploadId: 623701

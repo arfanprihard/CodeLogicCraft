@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 55c8b720b7a9c50478c0aa621a34a2db
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/Cube_bush.mat
+  uploadId: 623701

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f20ceb4dad101a845b21fed3b9b5e4df
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/cube_round_tree_02.mat
+  uploadId: 623701

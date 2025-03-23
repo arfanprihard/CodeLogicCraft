@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8743de217b7dba14f9c10d57729ae4e6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264864
+  packageName: Handpainted Cube Tilemap
+  packageVersion: 1.0
+  assetPath: Assets/Cube_Tilemap_Pack/Materials/cube_long_tree_01.mat
+  uploadId: 623701

@@ -1,14 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DropZoneDetection : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Transform obj = transform;
@@ -20,6 +14,7 @@ public class DropZoneDetection : MonoBehaviour
                 gameObject.tag = "Button";
                 break;
             }
+
             else if (obj.name == "Canvas")
             {
                 gameObject.tag = "Untagged";

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +50,21 @@ public class GameManager : MonoBehaviour
             Transform child = main.transform.GetChild(i);
             string name = child.name;
 
-            if (name == "Step")
+            if (name == "LoopIn")
+            {
+
+                Transform imgLoop = child.Find("loopImg");
+                Transform buttonLoop = imgLoop.Find("jumlahLoop");
+
+                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
+
+                int loopCount = int.Parse(jumlahLoop.text);
+                for (int j = 0; j < loopCount; j++)
+                {
+                    yield return StartCoroutine(ExecuteButtonMainLoop(child));
+                }
+            }
+            else if (name == "Step")
             {
                 Debug.Log("Nama Child: " + name);
                 movementCharacter.Langkah();
@@ -80,11 +95,11 @@ public class GameManager : MonoBehaviour
         playMode.SetActive(false);
     }
 
-    IEnumerator ExecuteButtonMethod()
+    IEnumerator ExecuteButtonMainLoop(Transform loopParent)
     {
-        for (int i = 0; i < method.transform.childCount; i++)
+        for (int i = 0; i < loopParent.childCount; i++)
         {
-            Transform child = method.transform.GetChild(i);
+            Transform child = loopParent.GetChild(i);
             string name = child.name;
 
             if (name == "Step")
@@ -103,16 +118,107 @@ public class GameManager : MonoBehaviour
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
+            else if (name == "LoopIn")
+            {
+                Transform imgLoop = child.Find("loopImg");
+                Transform buttonLoop = imgLoop.Find("jumlahLoop");
+
+                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
+
+                int loopCount = int.Parse(jumlahLoop.text);
+                for (int j = 0; j < loopCount; j++)
+                {
+                    yield return StartCoroutine(ExecuteButtonMainLoop(child));
+                }
+            }
+        }
+    }
+
+    IEnumerator ExecuteButtonMethod()
+    {
+        for (int i = 0; i < method.transform.childCount; i++)
+        {
+            Transform child = method.transform.GetChild(i);
+            string name = child.name;
+
+            if (name == "LoopIn")
+            {
+
+                Transform imgLoop = child.Find("loopImg");
+                Transform buttonLoop = imgLoop.Find("jumlahLoop");
+
+                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
+
+                int loopCount = int.Parse(jumlahLoop.text);
+                for (int j = 0; j < loopCount; j++)
+                {
+                    yield return StartCoroutine(ExecuteButtonMethodLoop(child));
+                }
+            }
+            else if (name == "Step")
+            {
+                Debug.Log("Nama Child: " + name);
+                movementCharacter.Langkah();
+                yield return new WaitUntil(() => !movementCharacter.IsMoving());
+            }
+            else if (name == "HadapKiri")
+            {
+                movementCharacter.HadapKiri();
+                yield return new WaitForSeconds(0.5f);
+            }
+            else if (name == "HadapKanan")
+            {
+                movementCharacter.HadapKanan();
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+    }
+    IEnumerator ExecuteButtonMethodLoop(Transform loopParent)
+    {
+        for (int i = 0; i < loopParent.childCount; i++)
+        {
+            Transform child = loopParent.GetChild(i);
+            string name = child.name;
+
+            if (name == "Step")
+            {
+                Debug.Log("Nama Child: " + name);
+                movementCharacter.Langkah();
+                yield return new WaitUntil(() => !movementCharacter.IsMoving());
+            }
+            else if (name == "HadapKiri")
+            {
+                movementCharacter.HadapKiri();
+                yield return new WaitForSeconds(0.5f);
+            }
+            else if (name == "HadapKanan")
+            {
+                movementCharacter.HadapKanan();
+                yield return new WaitForSeconds(0.5f);
+            }
+            else if (name == "LoopIn")
+            {
+                Transform imgLoop = child.Find("loopImg");
+                Transform buttonLoop = imgLoop.Find("jumlahLoop");
+
+                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
+
+                int loopCount = int.Parse(jumlahLoop.text);
+                for (int j = 0; j < loopCount; j++)
+                {
+                    yield return StartCoroutine(ExecuteButtonMethodLoop(child));
+                }
+            }
         }
     }
 
     void OnReloadClicked()
     {
-        if (!isPlaying) return; // Hanya reset jika sedang berjalan
+        // if (!isPlaying) return; // Hanya reset jika sedang berjalan
 
-        StopAllCoroutines();                // Hentikan semua Coroutine di GameManager
+        StopAllCoroutines(); // Hentikan semua Coroutine di GameManager
         movementCharacter.StopAllActions(); // Hentikan semua aksi di karakter
-        movementCharacter.ResetPosisi();    // Reset posisi karakter
+        movementCharacter.ResetPosisi(); // Reset posisi karakter
 
         isPlaying = false;
 

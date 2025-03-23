@@ -1,11 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.EventSystems;
 
 public class LoopButton : MonoBehaviour
 {
     private ContentSizeFitter contentSizeFitter;
     public GameObject shadow;
+
+    public Button jumlahLoopButton;
+    private TMP_Text buttonText;
+
+
     private int lastChildCount;
     private Vector2 lastSizeDelta;
 
@@ -21,6 +27,28 @@ public class LoopButton : MonoBehaviour
         // Simpan jumlah awal child dan ukuran awal
         lastChildCount = GetTotalChildCount(transform);
         lastSizeDelta = ((RectTransform)transform).sizeDelta;
+
+        buttonText = jumlahLoopButton.GetComponentInChildren<TMP_Text>();
+        if (buttonText == null)
+        {
+            Debug.LogError("TextMeshPro di dalam Button tidak ditemukan!");
+            return;
+        }
+        jumlahLoopButton.onClick.AddListener(OnLoopBtClicked);
+    }
+    void OnLoopBtClicked()
+    {
+        string angkaString = buttonText.text;
+        int angka = int.Parse(angkaString);
+        if (angka < 2 || angka > 8)
+        {
+            buttonText.text = "2";
+        }
+        else
+        {
+            buttonText.text = "" + (angka + 1);
+        }
+
     }
 
     void Update()
@@ -40,7 +68,7 @@ public class LoopButton : MonoBehaviour
         }
 
         // Atur visibilitas shadow berdasarkan jumlah child
-        bool shouldShowShadow = currentChildCount <= 10;
+        bool shouldShowShadow = currentChildCount <= 12;
         if (shadow.activeSelf != shouldShowShadow)
         {
             shadow.SetActive(shouldShowShadow);

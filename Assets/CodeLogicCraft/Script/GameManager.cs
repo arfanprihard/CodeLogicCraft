@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject method;
 
     private MovementCharacter movementCharacter;
+    public GameObject suksesUI;
+    public GameObject gagalUI;
     private bool isPlaying = false;
 
     void Start()
@@ -26,6 +28,15 @@ public class GameManager : MonoBehaviour
         // Tambah event listener ke tombol play dan pause
         playButton.onClick.AddListener(OnPlayClicked);
         reloadButton.onClick.AddListener(OnReloadClicked);
+    }
+
+    void Update()
+    {
+        if (!movementCharacter.IsMoving() && movementCharacter.IsOnStartPosition())
+        {
+            playButton.gameObject.SetActive(true);
+            reloadButton.gameObject.SetActive(false);
+        }
     }
 
     void OnPlayClicked()
@@ -93,6 +104,14 @@ public class GameManager : MonoBehaviour
         playButton.gameObject.SetActive(false);
         reloadButton.gameObject.SetActive(true);
         playMode.SetActive(false);
+        if (movementCharacter.CekFinish())
+        {
+            suksesUI.SetActive(true);
+        }
+        else
+        {
+            gagalUI.SetActive(true);
+        }
     }
 
     IEnumerator ExecuteButtonMainLoop(Transform loopParent)

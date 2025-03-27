@@ -13,8 +13,11 @@ public class MovementCharacter : MonoBehaviour
     private Vector3 posisiAwal;
     private Quaternion rotasiAwal;
 
+    private bool isTouchingFinish = false;
+
     void Start()
     {
+        isTouchingFinish = false;
         // Simpan posisi awal
         posisiAwal = transform.position;
         // Simpan rotasi awal
@@ -35,9 +38,15 @@ public class MovementCharacter : MonoBehaviour
         return isMoving;
     }
 
+    public bool IsOnStartPosition()
+    {
+        return transform.position == posisiAwal && transform.rotation == rotasiAwal;
+    }
+
     // Reset posisi ke posisi awal
     public void ResetPosisi()
     {
+        isTouchingFinish = false;
         transform.position = posisiAwal;
         transform.rotation = rotasiAwal;
         isMoving = false;
@@ -96,5 +105,16 @@ public class MovementCharacter : MonoBehaviour
         }
 
         transform.rotation = targetRotation;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Finish"))
+        {
+            isTouchingFinish = true;
+        }
+    }
+    public bool CekFinish()
+    {
+        return isTouchingFinish;
     }
 }

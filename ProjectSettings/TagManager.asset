@@ -4,14 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - ButtonClone
-  - ButtonMain
-  - ButtonMethod
-  - ButtonIfMain
   - DropZone
   - Button
   - looping
-  - dropzone
   - IsiLoop
   - PlaceHolder
   layers:

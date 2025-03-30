@@ -9,6 +9,7 @@ TagManager:
   - looping
   - IsiLoop
   - PlaceHolder
+  - Character
   layers:
   - Default
   - TransparentFX

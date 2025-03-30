@@ -281,16 +281,20 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 }
                 else if (childName == "isiloop" && transform.name == "LoopIn")
                 {
-                    int maxItems = currentDropZone.name == "Main" ? maxDropZoneMainItems : maxDropZoneMethodItems;
-                    if (HitungSemuaButton(currentDropZone) < maxItems)
+                    if (currentDropZone != null)
                     {
-                        clonePrefabPlaceHolder.transform.SetParent(parentButton);
-                        clonePrefabPlaceHolder.transform.SetSiblingIndex(index);
+                        int maxItems = currentDropZone.name == "Main" ? maxDropZoneMainItems : maxDropZoneMethodItems;
+                        if (HitungSemuaButton(currentDropZone) < maxItems)
+                        {
+                            clonePrefabPlaceHolder.transform.SetParent(parentButton);
+                            clonePrefabPlaceHolder.transform.SetSiblingIndex(index);
+                        }
+                        else
+                        {
+                            clonePrefabPlaceHolder.transform.SetParent(null);
+                        }
                     }
-                    else
-                    {
-                        clonePrefabPlaceHolder.transform.SetParent(null);
-                    }
+
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -31,15 +32,18 @@ public class MainMenu : MonoBehaviour
 
     public Button leftCharacter;
     public Button rightCharacter;
-    public GameObject[] character;
-    public GameObject currentCharacter;
 
+
+
+    private int currentIndexOfCharacterSkin = 0;
     private bool apakahAdaData;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Start()
     {
+        Debug.Log("Persistent Data Path: " + Application.persistentDataPath);
+
         apakahAdaData = SaveLoadSystem.Instance.ApakahAdaData();
         if (apakahAdaData)
         {
@@ -56,6 +60,8 @@ public class MainMenu : MonoBehaviour
         mulaibaru_lanjutbt.onClick.AddListener(OnClickLanjutMulaiBaruBT);
         lanjutkan_iyabt.onClick.AddListener(OnClickIyaLanjutBT);
         keluar_iyabt.onClick.AddListener(OnClickIyaKeluarBT);
+
+        PlayerPrefs.SetInt("TingkatKesulitan", 1);
     }
 
     private void OnClickMulaiBaruBT()
@@ -100,93 +106,63 @@ public class MainMenu : MonoBehaviour
         Application.Quit(); // Berfungsi saat build aplikasi
     }
 
+
     private void OnclickLeftCharacter()
     {
-        string nameKarakter = currentCharacter.transform.GetChild(0).name;
-        int indexNameKarakter = 0;
-        Match match = Regex.Match(nameKarakter, @"\d+$");
+        GameObject[] characterSkins = GameObject.FindGameObjectsWithTag("Character");
+        Transform parentCharacter;
 
-        if (match.Success)
+        foreach (GameObject obj in characterSkins)
         {
-            indexNameKarakter = int.Parse(match.Value);
-            Debug.Log("Angka di akhir: " + indexNameKarakter);
+            int indexOfCharacterSkin = 0;
+            if (obj.activeInHierarchy)
+            {
+                indexOfCharacterSkin = obj.transform.GetSiblingIndex();
+                parentCharacter = obj.transform.parent;
+
+                if (indexOfCharacterSkin <= 0)
+                {
+                    parentCharacter.GetChild(parentCharacter.childCount - 1).gameObject.SetActive(true);
+                    currentIndexOfCharacterSkin = parentCharacter.childCount - 1;
+                }
+                else
+                {
+                    parentCharacter.GetChild(indexOfCharacterSkin - 1).gameObject.SetActive(true);
+                    currentIndexOfCharacterSkin = indexOfCharacterSkin - 1;
+                }
+                obj.SetActive(false);
+            }
         }
-        else
-        {
-            Debug.Log("Tidak ada angka di akhir");
-        }
-
-        GameObject karakterSekarang = currentCharacter.transform.GetChild(0).gameObject;
-
-        // Simpan posisi, rotasi, dan skala
-        Vector3 posisi = karakterSekarang.transform.position;
-        Quaternion rotasi = karakterSekarang.transform.rotation;
-        Vector3 skala = karakterSekarang.transform.localScale;
-
-
-        GameObject karakterBaru;
-        if (indexNameKarakter <= 0)
-        {
-            karakterBaru = character[character.Length - 1];
-        }
-        else
-        {
-            karakterBaru = character[indexNameKarakter - 1];
-        }
-
-        // Hapus objek lama
-        DestroyImmediate(karakterSekarang);
-
-        // Buat objek baru
-        GameObject newCharacter = Instantiate(karakterBaru, currentCharacter.transform);
-        newCharacter.name = karakterBaru.name;
-        newCharacter.transform.rotation = rotasi;
-        newCharacter.transform.localScale = skala;
-        newCharacter.transform.position = posisi;
+        PlayerPrefs.SetInt("SkinCharacter", currentIndexOfCharacterSkin);
     }
 
     private void OnclickRightCharacter()
     {
-        string nameKarakter = currentCharacter.transform.GetChild(0).name;
-        int indexNameKarakter = 0;
-        Match match = Regex.Match(nameKarakter, @"\d+$");
+        GameObject[] characterSkins = GameObject.FindGameObjectsWithTag("Character");
+        Transform parentCharacter;
 
-        if (match.Success)
+        foreach (GameObject obj in characterSkins)
         {
-            indexNameKarakter = int.Parse(match.Value);
-            Debug.Log("Angka di akhir: " + indexNameKarakter);
+            int indexOfCharacterSkin = 0;
+            if (obj.activeInHierarchy)
+            {
+                indexOfCharacterSkin = obj.transform.GetSiblingIndex();
+                parentCharacter = obj.transform.parent;
+
+                if (indexOfCharacterSkin >= parentCharacter.childCount - 1)
+                {
+                    parentCharacter.GetChild(0).gameObject.SetActive(true);
+                    currentIndexOfCharacterSkin = 0;
+                }
+                else
+                {
+                    parentCharacter.GetChild(indexOfCharacterSkin + 1).gameObject.SetActive(true);
+                    currentIndexOfCharacterSkin = indexOfCharacterSkin + 1;
+                }
+                obj.SetActive(false);
+            }
         }
-        else
-        {
-            Debug.Log("Tidak ada angka di akhir");
-        }
-
-        GameObject karakterSekarang = currentCharacter.transform.GetChild(0).gameObject;
-
-        // Simpan posisi, rotasi, dan skala
-        Vector3 posisi = karakterSekarang.transform.position;
-        Quaternion rotasi = karakterSekarang.transform.rotation;
-        Vector3 skala = karakterSekarang.transform.localScale;
-
-        GameObject karakterBaru;
-        if (indexNameKarakter < character.Length - 1)
-        {
-            karakterBaru = character[indexNameKarakter + 1];
-        }
-        else
-        {
-            karakterBaru = character[0];
-        }
-
-        // Hapus objek lama
-        DestroyImmediate(karakterSekarang);
-
-        // Buat objek baru
-        GameObject newCharacter = Instantiate(karakterBaru, currentCharacter.transform);
-        newCharacter.name = karakterBaru.name;
-        newCharacter.transform.rotation = rotasi;
-        newCharacter.transform.localScale = skala;
-        newCharacter.transform.position = posisi;
+        PlayerPrefs.SetInt("SkinCharacter", currentIndexOfCharacterSkin);
     }
 }
 

@@ -1,9 +1,13 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InGameManager : MonoBehaviour
 {
+    public TMP_Text totalBintangTxt;
+    public TMP_Text tingkatKesulitanTxt;
+    public TMP_Text levelTxt;
     public Button backButton;
     public GameObject[] parent_tingkatKesulitan;
 
@@ -24,7 +28,32 @@ public class InGameManager : MonoBehaviour
 
     }
 
-    public void UpdateLevel(){
+    void Update()
+    {
+        totalBintangTxt.text = SaveLoadSystem.Instance.GetTotalBintang() + "/60";
+        levelTxt.text = "Level " + PlayerPrefs.GetInt("Level");
+        int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
+        if (tingkatanKesulitanSekarang == 1)
+        {
+            tingkatKesulitanTxt.text = "Dasar - Pergerakan";
+        }
+        else if (tingkatanKesulitanSekarang == 2)
+        {
+            tingkatKesulitanTxt.text = "Perulangan - Kode Berulang";
+
+        }
+        else if (tingkatanKesulitanSekarang == 3)
+        {
+            tingkatKesulitanTxt.text = "Percabangan - Pilihan Jalan";
+        }
+        else if (tingkatanKesulitanSekarang == 4)
+        {
+            tingkatKesulitanTxt.text = "Method - Panggil Bantuan";
+        }
+    }
+
+    public void UpdateLevel()
+    {
         int tingkatKesulitan = PlayerPrefs.GetInt("TingkatKesulitan");
         int level = PlayerPrefs.GetInt("Level");
 

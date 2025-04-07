@@ -9,7 +9,7 @@ public class DropZoneDetection : MonoBehaviour
         while (obj != null) // Loop selama masih ada parent
         {
             obj = obj.parent;
-            if (obj.name == "Main" || obj.name == "Method" || obj.name == "LoopIn")
+            if (obj.name == "Main" || obj.name == "Method" || obj.name == "LoopIn" || obj.name == "isi")
             {
                 gameObject.tag = "Button";
                 break;

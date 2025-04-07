@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
             ActionFailed();
         }
     }
-    
+
 
 
     void OnClickButtonSukses()
@@ -102,8 +102,13 @@ public class GameManager : MonoBehaviour
                 int loopCount = int.Parse(jumlahLoop.text);
                 for (int j = 0; j < loopCount; j++)
                 {
-                    yield return StartCoroutine(ExecuteButtonMainLoop(child));
+                    yield return StartCoroutine(ExecuteButtonLoop(child));
                 }
+            }
+            else if (name == "Percabangan" && movementCharacter.CekPercabangan())
+            {
+                Transform childPercabangan = child.Find("isi").Find("isi");
+                yield return StartCoroutine(ExecuteButtonPercabangan(childPercabangan));
             }
             else if (name == "Step")
             {
@@ -122,9 +127,12 @@ public class GameManager : MonoBehaviour
             }
             else if (name == "Take")
             {
-                if(movementCharacter.CekTakeItem()){
+                if (movementCharacter.CekTakeItem())
+                {
                     movementCharacter.TakeItem();
-                }else{
+                }
+                else
+                {
                     ActionFailed();
                 }
                 yield return new WaitForSeconds(2.5f);
@@ -137,7 +145,7 @@ public class GameManager : MonoBehaviour
 
         isPlaying = false;
 
-        
+
         // Periksa apakah karakter berada di area finish
         playButton.gameObject.SetActive(false);
         reloadButton.gameObject.SetActive(true);
@@ -153,7 +161,62 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator ExecuteButtonMainLoop(Transform loopParent)
+    IEnumerator ExecuteButtonMethod()
+    {
+        for (int i = 0; i < method.transform.childCount; i++)
+        {
+            Transform child = method.transform.GetChild(i);
+            string name = child.name;
+
+            if (name == "LoopIn")
+            {
+                Transform imgLoop = child.Find("loopImg");
+                Transform buttonLoop = imgLoop.Find("jumlahLoop");
+
+                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
+
+                int loopCount = int.Parse(jumlahLoop.text);
+                for (int j = 0; j < loopCount; j++)
+                {
+                    yield return StartCoroutine(ExecuteButtonLoop(child));
+                }
+            }
+            else if (name == "Percabangan" && movementCharacter.CekPercabangan())
+            {
+                Transform childPercabangan = child.Find("isi").Find("isi");
+                yield return StartCoroutine(ExecuteButtonPercabangan(childPercabangan));
+            }
+            else if (name == "Step")
+            {
+                movementCharacter.Langkah();
+                yield return new WaitUntil(() => !movementCharacter.IsMoving());
+            }
+            else if (name == "HadapKiri")
+            {
+                movementCharacter.HadapKiri();
+                yield return new WaitForSeconds(0.5f);
+            }
+            else if (name == "HadapKanan")
+            {
+                movementCharacter.HadapKanan();
+                yield return new WaitForSeconds(0.5f);
+            }
+            else if (name == "Take")
+            {
+                if (movementCharacter.CekTakeItem())
+                {
+                    movementCharacter.TakeItem();
+                }
+                else
+                {
+                    ActionFailed();
+                }
+                yield return new WaitForSeconds(2.5f);
+            }
+        }
+    }
+
+    IEnumerator ExecuteButtonLoop(Transform loopParent)
     {
         for (int i = 0; i < loopParent.childCount; i++)
         {
@@ -175,14 +238,36 @@ public class GameManager : MonoBehaviour
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
+            else if (name == "LoopIn")
+            {
+                Transform imgLoop = child.Find("loopImg");
+                Transform buttonLoop = imgLoop.Find("jumlahLoop");
+                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
+
+                int loopCount = int.Parse(jumlahLoop.text);
+                for (int j = 0; j < loopCount; j++)
+                {
+                    yield return StartCoroutine(ExecuteButtonLoop(child));
+                }
+            }
+            else if (name == "Percabangan" && movementCharacter.CekPercabangan())
+            {
+                Transform childPercabangan = child.Find("isi").Find("isi");
+                yield return StartCoroutine(ExecuteButtonPercabangan(childPercabangan));
+            }
+            else if (name == "Method")
+            {
+                yield return StartCoroutine(ExecuteButtonMethod());
+            }
         }
     }
 
-    IEnumerator ExecuteButtonMethod()
+    IEnumerator ExecuteButtonPercabangan(Transform parentPercabangan)
     {
-        for (int i = 0; i < method.transform.childCount; i++)
+        Debug.Log("Banyak child Percabangan = " + parentPercabangan.childCount);
+        if (parentPercabangan.childCount > 0)
         {
-            Transform child = method.transform.GetChild(i);
+            Transform child = parentPercabangan.GetChild(0);
             string name = child.name;
 
             if (name == "Step")
@@ -200,8 +285,25 @@ public class GameManager : MonoBehaviour
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
+            else if (name == "Method")
+            {
+                yield return StartCoroutine(ExecuteButtonMethod());
+            }
+            else if (name == "Take")
+            {
+                if (movementCharacter.CekTakeItem())
+                {
+                    movementCharacter.TakeItem();
+                }
+                else
+                {
+                    ActionFailed();
+                }
+                yield return new WaitForSeconds(2.5f);
+            }
         }
     }
+
 
     void OnReloadClicked()
     {

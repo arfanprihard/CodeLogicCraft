@@ -15,6 +15,7 @@ public class MovementCharacter : MonoBehaviour
     private Quaternion rotasiAwal;
 
     private bool isTouchingFinish = false;
+    private bool isTouchingPercabangan = false;
     private bool isTouchingItem = false;
 
     private Stack<GameObject> itemStack = new Stack<GameObject>();
@@ -36,7 +37,9 @@ public class MovementCharacter : MonoBehaviour
         {
             MoveTowardsTarget();
             animator.SetBool("isMoving", true);
-        }else{
+        }
+        else
+        {
             animator.SetBool("isMoving", false);
         }
     }
@@ -60,12 +63,13 @@ public class MovementCharacter : MonoBehaviour
         isMoving = false;
         isTouchingItem = false;
         isTouchingFinish = false;
+        isTouchingPercabangan = false;
         EnableAllItems();
     }
     void EnableAllItems()
     {
         // Cari semua objek dengan tag "Item"
-        GameObject[] allItems = itemStack.ToArray(); 
+        GameObject[] allItems = itemStack.ToArray();
 
         // Iterasi melalui semua item dan mencetak nama-nama item
         foreach (GameObject item in allItems)
@@ -134,7 +138,10 @@ public class MovementCharacter : MonoBehaviour
         if (collision.collider.CompareTag("Finish"))
         {
             isTouchingFinish = true;
-
+        }
+        if (collision.collider.CompareTag("Percabangan"))
+        {
+            isTouchingPercabangan = true;
         }
     }
     private void OnCollisionExit(Collision collision)
@@ -142,6 +149,10 @@ public class MovementCharacter : MonoBehaviour
         if (collision.collider.CompareTag("Finish"))
         {
             isTouchingFinish = false;
+        }
+        if (collision.collider.CompareTag("Percabangan"))
+        {
+            isTouchingPercabangan = false;
         }
     }
 
@@ -167,7 +178,8 @@ public class MovementCharacter : MonoBehaviour
         return isTouchingItem;
     }
 
-    public void TakeItem(){
+    public void TakeItem()
+    {
         animator.SetTrigger("triggerTakeItem");
         // Mulai Coroutine untuk menunggu selama 2 detik
         StartCoroutine(WaitForTimeAndTakeItem(2f)); // 2 detik jeda
@@ -188,16 +200,23 @@ public class MovementCharacter : MonoBehaviour
     public bool CekFinish()
     {
         return isTouchingFinish;
-        
+
+    }
+    public bool CekPercabangan()
+    {
+        return isTouchingPercabangan;
     }
 
-    public bool CekFallArea(){
+    public bool CekFallArea()
+    {
         if (transform.position.y < -2f) // Periksa apakah karakter berada di bawah sumbu Y -2
         {
             isTouchingFinish = false;
             Debug.Log("Karakter jatuuuuhh");
             return true; // Karakter jatuh
-        }else{
+        }
+        else
+        {
             return false;
         }
     }

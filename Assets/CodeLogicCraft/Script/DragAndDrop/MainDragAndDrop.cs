@@ -44,10 +44,17 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
     private Vector3 startDragPosition;
     private float dragThreshold = 10f; // Ambang batas jarak untuk mendeteksi drag
 
-    private int maxDropZoneMainItems = 10;
+    private int maxDropZoneMainItems = 14;
     private int maxDropZoneMethodItems = 7;
 
-
+    void Start()
+    {
+        int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
+        if (tingkatanKesulitanSekarang == 4)
+        {
+            maxDropZoneMainItems = 10;
+        }
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("OnPointerDown");
@@ -167,7 +174,7 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
         }
 
         Destroy(clonePrefabPlaceHolder);
-        
+
     }
 
 

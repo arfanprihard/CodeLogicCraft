@@ -11,6 +11,7 @@ TagManager:
   - PlaceHolder
   - Character
   - Item
+  - Percabangan
   layers:
   - Default
   - TransparentFX

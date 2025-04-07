@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelPage : MonoBehaviour
 {
@@ -11,17 +12,23 @@ public class LevelPage : MonoBehaviour
         public Button[] levels = new Button[5];
         public GameObject[] locklevels = new GameObject[5];
     }
+    public TMP_Text topText;
+    public TMP_Text totalBintangTxt;
     public Button backbt;
     public PerTingkatKesulitan[] perTingkatKesulitans;
 
     void Start()
     {
+        totalBintangTxt.text = SaveLoadSystem.Instance.GetTotalBintang() + "/60";
         backbt.onClick.AddListener(() => SceneManager.LoadScene("MainMenu"));
+
+        int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
+
         // Loop setiap PerLevel dalam array perlevel
         int indexLevel = 0;
         foreach (PerTingkatKesulitan perTingkatKesulitan in perTingkatKesulitans)
         {
-            if (indexLevel == PlayerPrefs.GetInt("TingkatKesulitan") - 1)
+            if (indexLevel == tingkatanKesulitanSekarang - 1)
             {
                 perTingkatKesulitan.tingkatKesulitan.SetActive(true);
             }
@@ -48,6 +55,27 @@ public class LevelPage : MonoBehaviour
                 }
             }
             indexLevel++;
+        }
+    }
+
+    void Update()
+    {
+        int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
+        if (tingkatanKesulitanSekarang == 1 || tingkatanKesulitanSekarang == 0)
+        {
+            topText.text = "Dasar - Pergerakan";
+        }
+        else if (tingkatanKesulitanSekarang == 2)
+        {
+            topText.text = "Perulangan - Kode Berulang";
+        }
+        else if (tingkatanKesulitanSekarang == 3)
+        {
+            topText.text = "Percabangan - Pilihan Jalan";
+        }
+        else if (tingkatanKesulitanSekarang == 4)
+        {
+            topText.text = "Method - Panggil Bantuan";
         }
     }
 

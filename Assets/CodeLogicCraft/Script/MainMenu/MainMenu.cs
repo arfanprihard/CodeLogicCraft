@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour
         lanjutkan_iyabt.onClick.AddListener(OnClickIyaLanjutBT);
         keluar_iyabt.onClick.AddListener(OnClickIyaKeluarBT);
 
-        PlayerPrefs.SetInt("TingkatKesulitan", 1);
+        //PlayerPrefs.SetInt("TingkatKesulitan", 1);
     }
 
     private void OnClickMulaiBaruBT()

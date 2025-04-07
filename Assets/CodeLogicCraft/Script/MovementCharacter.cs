@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MovementCharacter : MonoBehaviour
 {
@@ -14,10 +15,15 @@ public class MovementCharacter : MonoBehaviour
     private Quaternion rotasiAwal;
 
     private bool isTouchingFinish = false;
+    private bool isTouchingItem = false;
+
+    private Stack<GameObject> itemStack = new Stack<GameObject>();
+    private GameObject itemTake;
+    private Animator animator;
 
     void Start()
     {
-        isTouchingFinish = false;
+        animator = GetComponent<Animator>();
         // Simpan posisi awal
         posisiAwal = transform.position;
         // Simpan rotasi awal
@@ -29,6 +35,9 @@ public class MovementCharacter : MonoBehaviour
         if (isMoving)
         {
             MoveTowardsTarget();
+            animator.SetBool("isMoving", true);
+        }else{
+            animator.SetBool("isMoving", false);
         }
     }
 
@@ -46,10 +55,24 @@ public class MovementCharacter : MonoBehaviour
     // Reset posisi ke posisi awal
     public void ResetPosisi()
     {
-        isTouchingFinish = false;
         transform.position = posisiAwal;
         transform.rotation = rotasiAwal;
         isMoving = false;
+        isTouchingItem = false;
+        isTouchingFinish = false;
+        EnableAllItems();
+    }
+    void EnableAllItems()
+    {
+        // Cari semua objek dengan tag "Item"
+        GameObject[] allItems = itemStack.ToArray(); 
+
+        // Iterasi melalui semua item dan mencetak nama-nama item
+        foreach (GameObject item in allItems)
+        {
+            item.SetActive(true);
+        }
+        itemStack.Clear();
     }
     public void StopAllActions()
     {
@@ -111,10 +134,71 @@ public class MovementCharacter : MonoBehaviour
         if (collision.collider.CompareTag("Finish"))
         {
             isTouchingFinish = true;
+
         }
     }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Finish"))
+        {
+            isTouchingFinish = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            itemTake = other.gameObject;
+            isTouchingItem = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            isTouchingItem = false;
+        }
+    }
+
+    public bool CekTakeItem()
+    {
+        return isTouchingItem;
+    }
+
+    public void TakeItem(){
+        animator.SetTrigger("triggerTakeItem");
+        // Mulai Coroutine untuk menunggu selama 2 detik
+        StartCoroutine(WaitForTimeAndTakeItem(2f)); // 2 detik jeda
+    }
+
+    // Coroutine untuk menunggu waktu tertentu (misalnya 2 detik)
+    IEnumerator WaitForTimeAndTakeItem(float delayTime)
+    {
+        // Tunggu selama waktu tertentu (misalnya 2 detik)
+        yield return new WaitForSeconds(delayTime);
+
+        // Setelah 2 detik, baru lanjutkan aksi selanjutnya
+        // Menambahkan item ke stack dan menonaktifkan item
+        itemStack.Push(itemTake);
+        itemStack.Peek().SetActive(false);
+    }
+
     public bool CekFinish()
     {
         return isTouchingFinish;
+        
+    }
+
+    public bool CekFallArea(){
+        if (transform.position.y < -2f) // Periksa apakah karakter berada di bawah sumbu Y -2
+        {
+            isTouchingFinish = false;
+            Debug.Log("Karakter jatuuuuhh");
+            return true; // Karakter jatuh
+        }else{
+            return false;
+        }
     }
 }

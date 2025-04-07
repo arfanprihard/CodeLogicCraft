@@ -165,8 +165,9 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
         {
             CheckRaycastPlaceHolder(eventData);
         }
-        Destroy(clonePrefabPlaceHolder);
 
+        Destroy(clonePrefabPlaceHolder);
+        
     }
 
 
@@ -452,7 +453,7 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
         return apakahTidakPenuh;
     }
 
-    private int HitungSemuaButton(Transform parent)
+    public int HitungSemuaButton(Transform parent)
     {
         int jumlahButton = 0;
         if (parent != null)

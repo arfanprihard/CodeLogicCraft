@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Lose : MonoBehaviour
 {
@@ -7,12 +8,14 @@ public class Lose : MonoBehaviour
     [SerializeField] GameObject Body, TopGagal;
 
     private MovementCharacter movementCharacter;
+    public TMP_Text level;
     public Button restartButton;
 
     void Start()
     {
         movementCharacter = FindObjectOfType<MovementCharacter>();
         restartButton.onClick.AddListener(Restart);
+
     }
     void Restart()
     {
@@ -26,6 +29,9 @@ public class Lose : MonoBehaviour
     }
     void OnEnable()
     {
+        int indexLevel = PlayerPrefs.GetInt("Level") - 1;
+
+        level.text = "Level " + (indexLevel + 1);
         Reset();  // Reset ukuran saat diaktifkan
         TopAnim(); // Jalankan animasi dari awal lagi
     }

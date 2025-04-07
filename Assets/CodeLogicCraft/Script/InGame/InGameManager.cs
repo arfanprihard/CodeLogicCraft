@@ -20,9 +20,13 @@ public class InGameManager : MonoBehaviour
     void Start()
     {
         backButton.onClick.AddListener(OnClickBackBT);
+        UpdateLevel();
+
+    }
+
+    public void UpdateLevel(){
         int tingkatKesulitan = PlayerPrefs.GetInt("TingkatKesulitan");
         int level = PlayerPrefs.GetInt("Level");
-
 
         for (int i = 0; i < parent_tingkatKesulitan.Length; i++)
         {
@@ -52,7 +56,6 @@ public class InGameManager : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void OnClickBackBT()

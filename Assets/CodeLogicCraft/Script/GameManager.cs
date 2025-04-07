@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject method;
 
     private MovementCharacter movementCharacter;
+
+    public Button nextButtonSukses;
     public GameObject suksesUI;
     public GameObject gagalUI;
     private bool isPlaying = false;
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
         // Tambah event listener ke tombol play dan pause
         playButton.onClick.AddListener(OnPlayClicked);
         reloadButton.onClick.AddListener(OnReloadClicked);
+        nextButtonSukses.onClick.AddListener(OnClickButtonSukses);
     }
 
     void Update()
@@ -36,6 +39,24 @@ public class GameManager : MonoBehaviour
         {
             playButton.gameObject.SetActive(true);
             reloadButton.gameObject.SetActive(false);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (movementCharacter.CekFallArea())
+        {
+            ActionFailed();
+        }
+    }
+    
+
+
+    void OnClickButtonSukses()
+    {
+        foreach (Transform child in main.transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 
@@ -50,6 +71,16 @@ public class GameManager : MonoBehaviour
         reloadButton.gameObject.SetActive(true);
         playMode.SetActive(true);
 
+        MainDragAndDrop mainDragAndDrop = FindObjectOfType<MainDragAndDrop>();
+        int totalButtonMain = mainDragAndDrop.HitungSemuaButton(main.transform);
+        int totalButtonMethod = 0;
+        if (method != null)
+        {
+            totalButtonMethod = mainDragAndDrop.HitungSemuaButton(method.transform);
+        }
+        PlayerPrefs.SetInt("TotalKode", totalButtonMain + totalButtonMethod);
+        Debug.Log("Banyak Kode = " + (totalButtonMain + totalButtonMethod));
+
         // Jalankan aksi secara berurutan
         StartCoroutine(ExecuteButtonMain());
     }
@@ -63,7 +94,6 @@ public class GameManager : MonoBehaviour
 
             if (name == "LoopIn")
             {
-
                 Transform imgLoop = child.Find("loopImg");
                 Transform buttonLoop = imgLoop.Find("jumlahLoop");
 
@@ -77,7 +107,6 @@ public class GameManager : MonoBehaviour
             }
             else if (name == "Step")
             {
-                Debug.Log("Nama Child: " + name);
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
@@ -91,20 +120,30 @@ public class GameManager : MonoBehaviour
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
+            else if (name == "Take")
+            {
+                if(movementCharacter.CekTakeItem()){
+                    movementCharacter.TakeItem();
+                }else{
+                    ActionFailed();
+                }
+                yield return new WaitForSeconds(2.5f);
+            }
             else if (name == "Method")
             {
-                // Menunggu hingga ExecuteButtonMethod selesai
                 yield return StartCoroutine(ExecuteButtonMethod());
             }
         }
 
         isPlaying = false;
 
-        // Jika Karakter sudah selesai bergerak
+        
+        // Periksa apakah karakter berada di area finish
         playButton.gameObject.SetActive(false);
         reloadButton.gameObject.SetActive(true);
         playMode.SetActive(false);
-        if (movementCharacter.CekFinish())
+
+        if (movementCharacter.CekFinish() && !IsItemActiveInHierarchy())
         {
             suksesUI.SetActive(true);
         }
@@ -123,7 +162,6 @@ public class GameManager : MonoBehaviour
 
             if (name == "Step")
             {
-                Debug.Log("Nama Child: " + name);
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
@@ -136,19 +174,6 @@ public class GameManager : MonoBehaviour
             {
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
-            }
-            else if (name == "LoopIn")
-            {
-                Transform imgLoop = child.Find("loopImg");
-                Transform buttonLoop = imgLoop.Find("jumlahLoop");
-
-                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
-
-                int loopCount = int.Parse(jumlahLoop.text);
-                for (int j = 0; j < loopCount; j++)
-                {
-                    yield return StartCoroutine(ExecuteButtonMainLoop(child));
-                }
             }
         }
     }
@@ -160,48 +185,8 @@ public class GameManager : MonoBehaviour
             Transform child = method.transform.GetChild(i);
             string name = child.name;
 
-            if (name == "LoopIn")
-            {
-
-                Transform imgLoop = child.Find("loopImg");
-                Transform buttonLoop = imgLoop.Find("jumlahLoop");
-
-                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
-
-                int loopCount = int.Parse(jumlahLoop.text);
-                for (int j = 0; j < loopCount; j++)
-                {
-                    yield return StartCoroutine(ExecuteButtonMethodLoop(child));
-                }
-            }
-            else if (name == "Step")
-            {
-                Debug.Log("Nama Child: " + name);
-                movementCharacter.Langkah();
-                yield return new WaitUntil(() => !movementCharacter.IsMoving());
-            }
-            else if (name == "HadapKiri")
-            {
-                movementCharacter.HadapKiri();
-                yield return new WaitForSeconds(0.5f);
-            }
-            else if (name == "HadapKanan")
-            {
-                movementCharacter.HadapKanan();
-                yield return new WaitForSeconds(0.5f);
-            }
-        }
-    }
-    IEnumerator ExecuteButtonMethodLoop(Transform loopParent)
-    {
-        for (int i = 0; i < loopParent.childCount; i++)
-        {
-            Transform child = loopParent.GetChild(i);
-            string name = child.name;
-
             if (name == "Step")
             {
-                Debug.Log("Nama Child: " + name);
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
@@ -214,36 +199,47 @@ public class GameManager : MonoBehaviour
             {
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
-            }
-            else if (name == "LoopIn")
-            {
-                Transform imgLoop = child.Find("loopImg");
-                Transform buttonLoop = imgLoop.Find("jumlahLoop");
-
-                TMP_Text jumlahLoop = buttonLoop.GetChild(0).GetComponent<TMP_Text>();
-
-                int loopCount = int.Parse(jumlahLoop.text);
-                for (int j = 0; j < loopCount; j++)
-                {
-                    yield return StartCoroutine(ExecuteButtonMethodLoop(child));
-                }
             }
         }
     }
 
     void OnReloadClicked()
     {
-        // if (!isPlaying) return; // Hanya reset jika sedang berjalan
-
         StopAllCoroutines(); // Hentikan semua Coroutine di GameManager
         movementCharacter.StopAllActions(); // Hentikan semua aksi di karakter
         movementCharacter.ResetPosisi(); // Reset posisi karakter
 
         isPlaying = false;
 
-        // Aktifkan tombol Play dan nonaktifkan tombol Reload
         playButton.gameObject.SetActive(true);
         reloadButton.gameObject.SetActive(false);
         playMode.SetActive(false);
+    }
+
+    void ActionFailed()
+    {
+        StopAllCoroutines(); // Hentikan semua Coroutine
+        movementCharacter.StopAllActions(); // Hentikan semua aksi di karakter
+        gagalUI.SetActive(true); // Tampilkan UI gagal
+        playButton.gameObject.SetActive(true); // Tampilkan tombol Play
+        reloadButton.gameObject.SetActive(false); // Sembunyikan tombol Reload
+        playMode.SetActive(false); // Matikan play mode
+        isPlaying = false;
+    }
+    bool IsItemActiveInHierarchy()
+    {
+        // Cari semua objek dengan tag "Item"
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+
+        // Periksa apakah objek tersebut aktif di dalam hierarki
+        foreach (GameObject item in items)
+        {
+            if (item.activeInHierarchy)
+            {
+                return true; // Jika ada objek aktif, return true
+            }
+        }
+
+        return false; // Tidak ada objek aktif, return false
     }
 }

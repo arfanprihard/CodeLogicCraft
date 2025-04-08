@@ -167,4 +167,27 @@ public class SaveLoadSystem : MonoBehaviour
 
         }
     }
+
+    // ==============================
+    // Mengambil Tingkat Kesulitan yang belum lengkap
+    // ==============================
+    public int TingkatKesesulitanBelumLengkap()
+    {
+        for(int a = 0; a < gameData.bintangKesulitan1.Length; a++){
+            if(gameData.bintangKesulitan1[a] <= 0)
+            {
+                return 1;
+            }else if(gameData.bintangKesulitan2[a] <= 0)
+            {
+                return 2;
+            }else if(gameData.bintangKesulitan3[a] <= 0)
+            {
+                return 3;
+            }else if(gameData.bintangKesulitan4[a] <= 0)
+            {
+                return 4;
+            }
+        }
+        return 1;
+    }
 }

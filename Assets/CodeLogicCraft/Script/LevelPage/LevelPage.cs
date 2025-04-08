@@ -23,7 +23,7 @@ public class LevelPage : MonoBehaviour
         backbt.onClick.AddListener(() => SceneManager.LoadScene("MainMenu"));
 
         int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
-
+        
         // Loop setiap PerLevel dalam array perlevel
         int indexLevel = 0;
         foreach (PerTingkatKesulitan perTingkatKesulitan in perTingkatKesulitans)

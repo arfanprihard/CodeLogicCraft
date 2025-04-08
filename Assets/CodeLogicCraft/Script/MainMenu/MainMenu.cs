@@ -90,6 +90,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
+            PlayerPrefs.SetInt("TingkatKesulitan", 1);
             SaveLoadSystem.Instance.NewGame(nama);
             SceneManager.LoadScene(nextScene);
         }
@@ -98,6 +99,7 @@ public class MainMenu : MonoBehaviour
     private void OnClickIyaLanjutBT()
     {
         SaveLoadSystem.Instance.LoadGame();
+        PlayerPrefs.SetInt("TingkatKesulitan", SaveLoadSystem.Instance.TingkatKesesulitanBelumLengkap());
         SceneManager.LoadScene(nextScene);
     }
     private void OnClickIyaKeluarBT()

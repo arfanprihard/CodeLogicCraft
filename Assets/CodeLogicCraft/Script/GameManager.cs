@@ -259,6 +259,18 @@ public class GameManager : MonoBehaviour
             {
                 yield return StartCoroutine(ExecuteButtonMethod());
             }
+            else if (name == "Take")
+            {
+                if (movementCharacter.CekTakeItem())
+                {
+                    movementCharacter.TakeItem();
+                }
+                else
+                {
+                    ActionFailed();
+                }
+                yield return new WaitForSeconds(2.5f);
+            }
         }
     }
 

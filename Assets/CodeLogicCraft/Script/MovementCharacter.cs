@@ -175,7 +175,13 @@ public class MovementCharacter : MonoBehaviour
 
     public bool CekTakeItem()
     {
-        return isTouchingItem;
+        if(isTouchingItem){
+            isTouchingItem = false;
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 
     public void TakeItem()
@@ -199,12 +205,26 @@ public class MovementCharacter : MonoBehaviour
 
     public bool CekFinish()
     {
-        return isTouchingFinish;
+        if(isTouchingFinish)
+        {
+            isTouchingFinish = false;
+            return true;
+        }else
+        {
+            return false;
+        }
 
     }
     public bool CekPercabangan()
     {
-        return isTouchingPercabangan;
+        if(isTouchingPercabangan)
+        {
+            // isTouchingPercabangan = false;
+            return true;
+        }else
+        {
+            return false;
+        }
     }
 
     public bool CekFallArea()

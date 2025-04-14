@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject segitiga;
     public Button playButton; // Assign di Inspector
     public Button reloadButton; // Assign di Inspector
     public GameObject playMode;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        segitiga.SetActive(false);
         movementCharacter = FindObjectOfType<MovementCharacter>();
 
         // Pastikan di awal, play aktif dan pause nonaktif
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
         {
             playButton.gameObject.SetActive(true);
             reloadButton.gameObject.SetActive(false);
+            segitiga.SetActive(false);
         }
     }
 
@@ -63,7 +66,7 @@ public class GameManager : MonoBehaviour
     void OnPlayClicked()
     {
         if (isPlaying) return; // Mencegah duplikasi eksekusi
-
+        segitiga.SetActive(true);
         isPlaying = true;
 
         // Nonaktifkan tombol Play dan aktifkan tombol Pause
@@ -107,26 +110,46 @@ public class GameManager : MonoBehaviour
             }
             else if (name == "Percabangan" && movementCharacter.CekPercabangan())
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 Transform childPercabangan = child.Find("isi").Find("isi");
                 yield return StartCoroutine(ExecuteButtonPercabangan(childPercabangan));
             }
             else if (name == "Step")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
             else if (name == "HadapKiri")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.HadapKiri();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "HadapKanan")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "Take")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 if (movementCharacter.CekTakeItem())
                 {
                     movementCharacter.TakeItem();
@@ -139,6 +162,10 @@ public class GameManager : MonoBehaviour
             }
             else if (name == "Method")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 yield return StartCoroutine(ExecuteButtonMethod());
             }
         }
@@ -183,26 +210,46 @@ public class GameManager : MonoBehaviour
             }
             else if (name == "Percabangan" && movementCharacter.CekPercabangan())
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 Transform childPercabangan = child.Find("isi").Find("isi");
                 yield return StartCoroutine(ExecuteButtonPercabangan(childPercabangan));
             }
             else if (name == "Step")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
             else if (name == "HadapKiri")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.HadapKiri();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "HadapKanan")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "Take")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 if (movementCharacter.CekTakeItem())
                 {
                     movementCharacter.TakeItem();
@@ -225,16 +272,28 @@ public class GameManager : MonoBehaviour
 
             if (name == "Step")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
             else if (name == "HadapKiri")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.HadapKiri();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "HadapKanan")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
@@ -252,15 +311,27 @@ public class GameManager : MonoBehaviour
             }
             else if (name == "Percabangan" && movementCharacter.CekPercabangan())
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 Transform childPercabangan = child.Find("isi").Find("isi");
                 yield return StartCoroutine(ExecuteButtonPercabangan(childPercabangan));
             }
             else if (name == "Method")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 yield return StartCoroutine(ExecuteButtonMethod());
             }
             else if (name == "Take")
             {
+                segitiga.transform.position = child.position;
+                Vector3 pos = segitiga.transform.position;
+                pos.y += 43f;
+                segitiga.transform.position = pos;
                 if (movementCharacter.CekTakeItem())
                 {
                     movementCharacter.TakeItem();
@@ -319,6 +390,7 @@ public class GameManager : MonoBehaviour
 
     void OnReloadClicked()
     {
+        segitiga.SetActive(false);
         StopAllCoroutines(); // Hentikan semua Coroutine di GameManager
         movementCharacter.StopAllActions(); // Hentikan semua aksi di karakter
         movementCharacter.ResetPosisi(); // Reset posisi karakter

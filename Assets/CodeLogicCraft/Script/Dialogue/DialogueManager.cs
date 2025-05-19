@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     [Header("Dialogue Data")]
-    public string characterName = "NPC";
+    public string characterName;
     [TextArea(3, 10)]
     public List<string> dialogueLines;
 
@@ -29,8 +29,8 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        // director.Pause();
-        director.gameObject.SetActive(false); // Ini bikin semua track & binding dilepas
+        director.Pause();
+        // director.gameObject.SetActive(false); // Ini bikin semua track & binding dilepas
         StartDialogue();
     }
 
@@ -71,8 +71,9 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            nextDirector.gameObject.SetActive(true);
-            nextDirector.Play();
+            // nextDirector.gameObject.SetActive(true);
+            // nextDirector.Play();
+            director.Resume();
             EndDialogue();
         }
     }

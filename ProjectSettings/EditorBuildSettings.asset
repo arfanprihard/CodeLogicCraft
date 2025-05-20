@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/CodeLogicCraft/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/CodeLogicCraft/Scenes/Prolog.unity
+    guid: 3b9c1f18fab178f41ae522408be884a8
+  - enabled: 1
     path: Assets/CodeLogicCraft/Scenes/LevelPage.unity
     guid: d92c8cba8b9a39e44aa6f2712a2ce06b
   - enabled: 1

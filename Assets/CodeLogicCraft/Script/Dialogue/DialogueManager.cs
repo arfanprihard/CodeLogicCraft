@@ -1,113 +1,56 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Playables;
 
 public class DialogueManager : MonoBehaviour
 {
-    public PlayableDirector director;
-    public PlayableDirector nextDirector;
-    [Header("UI References")]
-    public TextMeshProUGUI characterNameText;
-    public TextMeshProUGUI dialogueText;
+    [System.Serializable]
+    public class DialogLine
+    {
+        public string text;
+        public float delayBetweenLines;
+    }
 
-    [Header("Dialogue Data")]
-    public string characterName;
-    [TextArea(3, 10)]
-    public List<string> dialogueLines;
+    public DialogLine[] dialogLines;
+    public TextMeshProUGUI dialogText;
+    public GameObject dialogPanel;
 
-    [Header("Typing Settings")]
     public float typingSpeed = 0.05f;
 
-    private int currentLine = 0;
-    private bool isTyping = false;
-    private bool dialogueEnded = false;
-    private Coroutine typingCoroutine;
-
-
+    private int currentLineIndex = 0;
 
     void Start()
     {
-        director.Pause();
-        // director.gameObject.SetActive(false); // Ini bikin semua track & binding dilepas
-        StartDialogue();
+        dialogPanel.SetActive(true);
+        StartCoroutine(ShowDialog());
     }
 
-    void Update()
+    IEnumerator ShowDialog()
     {
-        if (dialogueEnded) return;
-
-        if (Input.GetMouseButtonDown(0)) // tap layar
+        while (currentLineIndex < dialogLines.Length)
         {
-            if (isTyping)
+            dialogPanel.SetActive(true);
+            dialogText.text = "";
+
+            string line = dialogLines[currentLineIndex].text;
+
+            foreach (char c in line)
             {
-                // Skip typing, langsung tampilkan seluruh teks
-                StopCoroutine(typingCoroutine);
-                dialogueText.text = dialogueLines[currentLine];
-                isTyping = false;
+                dialogText.text += c;
+                yield return new WaitForSeconds(typingSpeed);
             }
-            else
-            {
-                NextLine();
-            }
-        }
-    }
 
-    void StartDialogue()
-    {
-        currentLine = 0;
-        dialogueEnded = false;
-        characterNameText.text = characterName;
-        StartTyping(dialogueLines[currentLine]);
-    }
+            yield return new WaitForSeconds(dialogLines[currentLineIndex].delayBetweenLines);
 
-    void NextLine()
-    {
-        currentLine++;
-        if (currentLine < dialogueLines.Count)
-        {
-            StartTyping(dialogueLines[currentLine]);
-        }
-        else
-        {
-            // nextDirector.gameObject.SetActive(true);
-            // nextDirector.Play();
-            director.Resume();
-            EndDialogue();
-        }
-    }
-
-    void StartTyping(string line)
-    {
-        if (typingCoroutine != null)
-            StopCoroutine(typingCoroutine);
-
-        typingCoroutine = StartCoroutine(TypeLine(line));
-    }
-
-    IEnumerator TypeLine(string line)
-    {
-        isTyping = true;
-        dialogueText.text = "";
-
-        foreach (char c in line)
-        {
-            dialogueText.text += c;
-            yield return new WaitForSeconds(typingSpeed);
+            currentLineIndex++;
         }
 
-        isTyping = false;
+        EndDialog();
     }
 
-    void EndDialogue()
+    void EndDialog()
     {
-        dialogueText.text = "";
-        characterNameText.text = "";
-        dialogueEnded = true;
-        // director.gameObject.SetActive(true);
-        gameObject.SetActive(false);
-        Debug.Log("Dialog selesai!");
-        // Bisa trigger event lain di sini
+        dialogPanel.SetActive(false);
+        // Tambahkan aksi setelah dialog selesai (misalnya lanjut cutscene)
     }
 }

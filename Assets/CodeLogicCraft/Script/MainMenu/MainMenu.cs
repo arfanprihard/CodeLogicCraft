@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     private string nextScene = "LevelPage";
+    private string newGameScene = "Prolog";
 
     public Button mulaibarubt;
     // Pop Up di mulaibaruUI
@@ -92,7 +93,7 @@ public class MainMenu : MonoBehaviour
         {
             PlayerPrefs.SetInt("TingkatKesulitan", 1);
             SaveLoadSystem.Instance.NewGame(nama);
-            SceneManager.LoadScene(nextScene);
+            SceneManager.LoadScene(newGameScene);
         }
 
     }

@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
         public string text;
         public float delayBetweenLines;
     }
-
+    
     public DialogLine[] dialogLines;
     public TextMeshProUGUI dialogText;
     public GameObject dialogPanel;
@@ -27,6 +27,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator ShowDialog()
     {
+        
         while (currentLineIndex < dialogLines.Length)
         {
             dialogPanel.SetActive(true);

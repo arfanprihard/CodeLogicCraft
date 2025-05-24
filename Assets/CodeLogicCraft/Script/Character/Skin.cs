@@ -6,8 +6,8 @@ public class Skin : MonoBehaviour
     void Start()
     {
         int skinIndex = PlayerPrefs.GetInt("SkinCharacter");
-        Transform skins = gameObject.transform.GetChild(0);
-        for (int i = 0; i < skins.transform.childCount; i++)
+        Transform skins = gameObject.transform.GetChild(1);
+        for (int i = 0; i < skins.childCount; i++)
         {
             if (skinIndex == i)
             {

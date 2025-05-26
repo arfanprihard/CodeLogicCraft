@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameData
 {
     public string nama = "";
+    public bool[] sudahBukaStory = new bool[4];
     public int[] bintangKesulitan1 = new int[5];
     public int[] bintangKesulitan2 = new int[5];
     public int[] bintangKesulitan3 = new int[5];
@@ -173,21 +174,42 @@ public class SaveLoadSystem : MonoBehaviour
     // ==============================
     public int TingkatKesesulitanBelumLengkap()
     {
-        for(int a = 0; a < gameData.bintangKesulitan1.Length; a++){
-            if(gameData.bintangKesulitan1[a] <= 0)
+        for (int a = 0; a < gameData.bintangKesulitan1.Length; a++)
+        {
+            if (gameData.bintangKesulitan1[a] <= 0)
             {
                 return 1;
-            }else if(gameData.bintangKesulitan2[a] <= 0)
+            }
+            else if (gameData.bintangKesulitan2[a] <= 0)
             {
                 return 2;
-            }else if(gameData.bintangKesulitan3[a] <= 0)
+            }
+            else if (gameData.bintangKesulitan3[a] <= 0)
             {
                 return 3;
-            }else if(gameData.bintangKesulitan4[a] <= 0)
+            }
+            else if (gameData.bintangKesulitan4[a] <= 0)
             {
                 return 4;
             }
         }
         return 1;
+    }
+
+    // ==============================
+    // Mendapatkan nilai true/false dari Story
+    // ==============================
+
+    public bool GetSudahBukaStory(int perTingkatKesulitan)
+    {
+        return gameData.sudahBukaStory[perTingkatKesulitan - 1];
+    }
+
+    // ==============================
+    // Merubah nilai true/false dari Story
+    // ==============================
+    public void SetSudahBukaStory(int perTingkatKesulitan, bool nilai)
+    {
+        gameData.sudahBukaStory[perTingkatKesulitan - 1] = nilai;
     }
 }

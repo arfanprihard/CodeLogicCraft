@@ -53295,8 +53295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Ia mendapat ide untuk membangun tempat berlindung demi keamanan dan agar
-      bisa beristirahat dengan tenang.
+  - text: Seketika, ia mendapat ide untuk membangun tempat berlindung demi keamanan
+      dan agar dapat beristirahat dengan tenang.
     delayBetweenLines: 4
   dialogText: {fileID: 1445083917}
   dialogPanel: {fileID: 1445083918}
@@ -64699,7 +64699,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Pandangannya pun tertuju pada beberapa batang kayu yang berserakan.
+  - text: Pandangan matanya tertuju pada beberapa batang kayu yang berserakan di
+      sekitar.
     delayBetweenLines: 3
   dialogText: {fileID: 502472219}
   dialogPanel: {fileID: 1825863692}
@@ -70163,7 +70164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Bantu Arka mengumpulkan kayu agar ia bisa membangun rumah.
+  - text: Bantu Arka mengumpulkan kayu untuk membangun tempat tinggalnya.
     delayBetweenLines: 3
   dialogText: {fileID: 2016218869}
   dialogPanel: {fileID: 2016218870}

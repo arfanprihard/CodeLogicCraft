@@ -9,26 +9,28 @@ public class LevelPage : MonoBehaviour
     public class PerTingkatKesulitan
     {
         public GameObject tingkatKesulitan;
+        public Button story;
+        public GameObject lockStory;
         public Button[] levels = new Button[5];
         public GameObject[] locklevels = new GameObject[5];
     }
     public TMP_Text topText;
     public TMP_Text totalBintangTxt;
-    public Button backbt;
+    public Button homebt;
     public PerTingkatKesulitan[] perTingkatKesulitans;
 
     void Start()
     {
         totalBintangTxt.text = SaveLoadSystem.Instance.GetTotalBintang() + "/60";
-        backbt.onClick.AddListener(() => SceneManager.LoadScene("MainMenu"));
+        homebt.onClick.AddListener(() => SceneManager.LoadScene("MainMenu"));
 
         int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
-        
+
         // Loop setiap PerLevel dalam array perlevel
-        int indexLevel = 0;
+        int indexTingkatKesulitan = 0;
         foreach (PerTingkatKesulitan perTingkatKesulitan in perTingkatKesulitans)
         {
-            if (indexLevel == tingkatanKesulitanSekarang - 1)
+            if (indexTingkatKesulitan == tingkatanKesulitanSekarang - 1)
             {
                 perTingkatKesulitan.tingkatKesulitan.SetActive(true);
             }
@@ -36,25 +38,42 @@ public class LevelPage : MonoBehaviour
             {
                 perTingkatKesulitan.tingkatKesulitan.SetActive(false);
             }
+            perTingkatKesulitan.story.onClick.AddListener(() => OnClickStory(perTingkatKesulitan.story));
+            if (StorySudahKebuka(indexTingkatKesulitan + 1))
+            {
+                perTingkatKesulitan.story.transform.parent.gameObject.SetActive(true);
+                perTingkatKesulitan.lockStory.SetActive(false);
+            }
+            else
+            {
+                perTingkatKesulitan.story.transform.parent.gameObject.SetActive(false);
+                perTingkatKesulitan.lockStory.SetActive(true);
+            }
+
             for (int i = 0; i < perTingkatKesulitan.levels.Length; i++)
             {
                 int index = i + 1;
-                perTingkatKesulitan.levels[i].onClick.AddListener(() => OnClickLevel(GetIndexKesulitan(perTingkatKesulitan.tingkatKesulitan), index));
+                int tingkatKesulitan = indexTingkatKesulitan + 1;
 
-                if (ApakahLevelSebelumnyaAdaBintang(GetIndexKesulitan(perTingkatKesulitan.tingkatKesulitan), index))
+                perTingkatKesulitan.levels[i].onClick.AddListener(() => OnClickLevel(tingkatKesulitan, index));
+
+                bool levelSudahKebuka = LevelSudahKebuka(tingkatKesulitan, index);
+
+                if (levelSudahKebuka)
                 {
-                    int banyakBintang = SaveLoadSystem.Instance.GetBintang(GetIndexKesulitan(perTingkatKesulitan.tingkatKesulitan), index);
+                    int banyakBintang = SaveLoadSystem.Instance.GetBintang(tingkatKesulitan, index);
+                    PengisianBintangPerLevel(perTingkatKesulitan.levels[i].transform.parent.gameObject, banyakBintang);
                     perTingkatKesulitan.levels[i].transform.parent.gameObject.SetActive(true);
                     perTingkatKesulitan.locklevels[i].SetActive(false);
-                    PengisianBintangPerLevel(perTingkatKesulitan.levels[i].transform.parent.gameObject, banyakBintang);
                 }
                 else
                 {
                     perTingkatKesulitan.levels[i].transform.parent.gameObject.SetActive(false);
                     perTingkatKesulitan.locklevels[i].SetActive(true);
                 }
+
             }
-            indexLevel++;
+            indexTingkatKesulitan++;
         }
     }
 
@@ -79,6 +98,28 @@ public class LevelPage : MonoBehaviour
         }
     }
 
+    void OnClickStory(Button story)
+    {
+        string namaButton = story.gameObject.name;
+        Debug.Log("Button Story di Klik dengan nama button = " + namaButton);
+        if (namaButton == "mulaiDasar")
+        {
+            SceneManager.LoadScene("StoryDasar");
+        }
+        else if (namaButton == "mulaiPerulangan")
+        {
+            SceneManager.LoadScene("StoryPerulangan");
+        }
+        else if (namaButton == "mulaiPercabangan")
+        {
+            SceneManager.LoadScene("StoryPercabangan");
+        }
+        else if (namaButton == "mulaiMethod")
+        {
+            SceneManager.LoadScene("StoryMethod");
+        }
+
+    }
     void OnClickLevel(int tingkatKesulitan, int level)
     {
         Debug.Log($"Tingkat Kesulitan: {tingkatKesulitan}, Level: {level} diklik");
@@ -87,35 +128,24 @@ public class LevelPage : MonoBehaviour
         SceneManager.LoadScene("InGame");
     }
 
-    private int GetIndexKesulitan(GameObject tingkatKesulitan)
+    private bool StorySudahKebuka(int tingkatKesulitan)
     {
-        string namaKesulitan = tingkatKesulitan.name; // Ambil nama objek
+        if (tingkatKesulitan == 1) return true;
 
-        switch (namaKesulitan)
-        {
-            case "Mudah": return 1;
-            case "Sedang": return 2;
-            case "Sulit": return 3;
-            case "Ekstrem": return 4;
-            default: return 0;
-        }
+        return SaveLoadSystem.Instance.GetBintang(tingkatKesulitan - 1, 5) != 0;
     }
 
-
-    private bool ApakahLevelSebelumnyaAdaBintang(int tingkatKesulitan, int level)
+    private bool LevelSudahKebuka(int tingkatKesulitan, int level)
     {
-        if (level == 1 && tingkatKesulitan == 1) return true;
         if (level > 1)
         {
             level -= 1;
+            return SaveLoadSystem.Instance.GetBintang(tingkatKesulitan, level) != 0;
         }
-        else if (level <= 1)
+        else
         {
-            tingkatKesulitan -= 1;
-            level = 5;
+            return SaveLoadSystem.Instance.GetSudahBukaStory(tingkatKesulitan);
         }
-
-        return SaveLoadSystem.Instance.GetBintang(tingkatKesulitan, level) != 0;
     }
 
     private void PengisianBintangPerLevel(GameObject parent, int banyakBintang)

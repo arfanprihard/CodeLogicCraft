@@ -49304,7 +49304,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363137107}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.011649101, y: 0.2906771, z: -0.00353922, w: 0.9567438}
+  m_LocalRotation: {x: 0.0072934367, y: 0.3149504, z: -0.0024203202, w: 0.94907707}
   m_LocalPosition: {x: 19.22488, y: 6.5234365, z: 30.859299}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -52713,7 +52713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Bantu arka untuk mengumpulkan makanan untuk ia  bertahan hidup.
+  - text: 'Bantu Arka mengumpulkan makanan agar ia dapat bertahan hidup.  '
     delayBetweenLines: 5
   dialogText: {fileID: 1445083917}
   dialogPanel: {fileID: 1445083918}
@@ -59118,7 +59118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668992853}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.059388943, y: 0.9104296, z: -0.14063591, w: 0.38446403}
+  m_LocalRotation: {x: 0.049428355, y: 0.8141625, z: -0.07007635, w: 0.57426965}
   m_LocalPosition: {x: 32.658024, y: 6.9671893, z: 57.324543}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -64483,8 +64483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Ketika arka berjalan tak jauh dari sana ia  melihat sesuatu yang bisa ia
-      konsumsi.
+  - text: Tak jauh dari tempatnya berada, Arka melihat sesuatu yang bisa dikonsumsi.
     delayBetweenLines: 2
   dialogText: {fileID: 502472219}
   dialogPanel: {fileID: 1825863692}
@@ -73561,7 +73560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Arka merasa kelaparan. Ia memutuskan mencari makanan.
+  - text: Merasa perutnya mulai kosong dan tenaganya berkurang, Arka menyadari bahwa
+      ia harus segera mencari makanan untuk mengisi kembali energinya.
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}
   dialogPanel: {fileID: 4977057915838987441}

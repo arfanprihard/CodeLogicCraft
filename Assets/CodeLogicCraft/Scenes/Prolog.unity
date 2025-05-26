@@ -55461,7 +55461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: 'Petualangan Arka di pulau tak berpenghuni ini baru saja dimulai. '
+  - text: 'Petualangan Arka di pulau tak berpenghuni ini baru saja dimulai.  '
     delayBetweenLines: 5
   dialogText: {fileID: 1445083917}
   dialogPanel: {fileID: 1445083918}
@@ -66978,10 +66978,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Dengan kesadaran penuh dan naluri kemanusiannya,
+  - text: Dengan kesadaran yang mulai pulih dan naluri kemanusiaannya,
     delayBetweenLines: 2
-  - text: Arka harus mencari solusi untuk bertahan hidup dan mencari jalan keluar
-      dari pulau  ini dengan kemampuan yang ia miliki dan keterbatasan yang ada.
+  - text: ia harus mencari cara untuk bertahan hidup dan menemukan jalan keluar dari
+      pulau ini, mengandalkan kemampuan yang dimilikinya dan menghadapi segala keterbatasan
+      yang ada.
     delayBetweenLines: 2
   dialogText: {fileID: 502472219}
   dialogPanel: {fileID: 1825863692}
@@ -76303,8 +76304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Arka perlahan terbangun dari tidurnya dan menyadari bahwa ia terdampar
-      di sebuah pulau  tak berpenghuni.
+  - text: Arka perlahan terbangun dari tidurnya, lalu tersadar bahwa ia terdampar
+      di sebuah pulau tak berpenghuni.
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}
   dialogPanel: {fileID: 4977057915838987441}

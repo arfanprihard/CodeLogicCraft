@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class LoopButton : MonoBehaviour
+public class LoopButtons : MonoBehaviour
 {
     private ContentSizeFitter contentSizeFitter;
     public GameObject shadow;

@@ -20,7 +20,6 @@ public class InGameManager : MonoBehaviour
     public MapLevel[] mapLevels;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         backButton.onClick.AddListener(OnClickBackBT);

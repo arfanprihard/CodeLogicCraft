@@ -53,8 +53,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
     void OnClickButtonSukses()
     {
         foreach (Transform child in main.transform)

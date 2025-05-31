@@ -16,25 +16,12 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
 
     private Transform parentButton;
-    private Transform parentLoop;
 
     private bool isDragging = false;
-    private bool isInsideDropZone = false; // Menyimpan status apakah objek berada di dalam dropZone
-    private bool isInsideDropZoneMethod = false; // Menyimpan status apakah objek berada di dalam dropZone
-    private bool isInsideButton = false;
-    private bool isInsideIfButton = false;
-    private bool isInsideLoop = false;
-
-
-
-    private bool isInsideLeftButton = false;
-    private bool isInsideRightButton = false;
 
 
 
     private int index;
-    private int indexIfButton;
-    private int indexLoop;
 
     public GameObject prefabPlaceHolder;
     private GameObject clonePrefabPlaceHolder;
@@ -121,21 +108,12 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
             Debug.Log("OnDrag");
 
             cloneRectTransform.localScale = Vector3.one;
-            isInsideDropZone = false; // Default false
-            isInsideButton = false;
-            isInsideDropZoneMethod = false;
-            isInsideIfButton = false;
-            isInsideLoop = false;
 
             // Mengikuti posisi kursor
             cloneRectTransform.position = eventData.position;
 
-
             CheckRaycastDropZone(eventData);
             CheckRaycastButton(eventData);
-
-
-
         }
     }
 
@@ -144,16 +122,12 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         isDragging = false;
 
-        int indexPlaceHolder = clonePrefabPlaceHolder.transform.GetSiblingIndex();
-
-
         // Hitung jarak antara posisi awal dan posisi akhir
         float distance = Vector3.Distance(startDragPosition, eventData.position);
 
         if (distance < dragThreshold)
         {
             // Jika button langsung di klik
-
 
             Debug.Log("Button clicked!");
 
@@ -184,12 +158,7 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
-        // Reset status sebelum pengecekan
-        isInsideButton = false;
         parentButton = null;
-        isInsideLeftButton = false;
-        isInsideRightButton = false;
-
         foreach (RaycastResult result in results)
         {
             GameObject hitObject = result.gameObject;
@@ -221,7 +190,6 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
                 // Menentukan posisi berdasarkan nama child
                 string childName = hitObject.name.ToLower();
-                isInsideButton = true;
 
                 if (childName == "kiri")
                 {
@@ -236,8 +204,6 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
                         parentButton = hitParent.parent;
                         index = hitParent.GetSiblingIndex();
                     }
-
-                    isInsideLeftButton = true;
 
                 }
                 else if (childName == "kanan")
@@ -254,7 +220,6 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
                         index = hitParent.GetSiblingIndex() + 1;
                     }
 
-                    isInsideRightButton = true;
 
                 }
                 else if (childName == "isi" && hitObject.transform.childCount == 0 && transform.name != "LoopIn" && transform.name != "Percabangan")
@@ -267,7 +232,6 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 {
                     parentButton = hitParent.parent;
                     index = hitParent.GetSiblingIndex() + 1;
-                    isInsideLeftButton = true;
                     Debug.Log("Arah: isiLoop");
                 }
 
@@ -319,10 +283,6 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
-        // Reset status sebelum pengecekan
-        isInsideButton = false;
-        isInsideDropZone = false;
-        isInsideDropZoneMethod = false;
         parentButton = null;
 
         bool foundDropZone = false; // Menandai apakah DropZone ditemukan
@@ -348,7 +308,6 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 // Jika DropZone belum penuh dan placeholder belum ada di dalam
                 if (ApakahChildTidakPenuh(parentButton)) //&& clonePrefabPlaceHolder.transform.parent != parentButton)
                 {
-                    isInsideDropZone = true;
                     Debug.Log($"Menemukan DropZone: {hitObject.name}, Total Child = {parentButton.childCount}");
 
                     // Menambahkan clonePrefabPlaceHolder ke DropZone
@@ -392,9 +351,6 @@ public class MainDragAndDrop : MonoBehaviour, IPointerDownHandler, IDragHandler,
         EventSystem.current.RaycastAll(eventData, results);
 
         // Reset status sebelum pengecekan
-        isInsideButton = false;
-        isInsideDropZone = false;
-        isInsideDropZoneMethod = false;
         parentButton = null;
 
         bool isValidDrop = false;

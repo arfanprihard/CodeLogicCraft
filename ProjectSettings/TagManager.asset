@@ -12,6 +12,11 @@ TagManager:
   - Character
   - Item
   - Percabangan
+  - Bingkai
+  - Kanan
+  - Kiri
+  - LoopButton
+  - PercabanganButton
   layers:
   - Default
   - TransparentFX

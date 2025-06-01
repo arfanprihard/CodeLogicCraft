@@ -436,7 +436,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (dropZone.name == "Main")
         {
             int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
-            tingkatanKesulitanSekarang = 3;
             if (tingkatanKesulitanSekarang >= 4)
             {
                 int totalButtonDropZone = CountTaggedActiveChildren(dropZone);

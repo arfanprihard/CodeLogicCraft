@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2950
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -47,7 +47,7 @@ Material:
     - Vector1_93DCFAA9: 1.4
     - Vector1_C5543ECF: 1.03
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: -50
     m_Colors:
     - Color_A271762B: {r: 0.09750791, g: 0.32076618, b: 0.93962264, a: 0.9215686}
     - Color_AFFD055F: {r: 0.8584906, g: 0.7896494, b: 0.7896494, a: 1}

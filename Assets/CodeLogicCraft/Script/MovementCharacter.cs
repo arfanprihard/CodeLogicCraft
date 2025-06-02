@@ -65,6 +65,8 @@ public class MovementCharacter : MonoBehaviour
         isTouchingFinish = false;
         isTouchingPercabangan = false;
         EnableAllItems();
+        animator.Rebind();
+        animator.Update(0f);
     }
     void EnableAllItems()
     {

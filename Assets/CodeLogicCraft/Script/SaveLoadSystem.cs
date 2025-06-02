@@ -211,5 +211,6 @@ public class SaveLoadSystem : MonoBehaviour
     public void SetSudahBukaStory(int perTingkatKesulitan, bool nilai)
     {
         gameData.sudahBukaStory[perTingkatKesulitan - 1] = nilai;
+        SaveGame();
     }
 }

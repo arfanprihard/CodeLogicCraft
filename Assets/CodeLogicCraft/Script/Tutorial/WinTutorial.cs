@@ -1,27 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
-public class Win : MonoBehaviour
+public class WinTutorial : MonoBehaviour
 {
-    [System.Serializable]
-    public class DataSolusiWin
-    {
-        public int[] solusi = new int[5];
+    public int solusiKode;
 
-    }
-    public DataSolusiWin[] dataSolusiWin;
     [SerializeField] GameObject Body, Top, Bintang1, Bintang2, Bintang3;
     [SerializeField] ParticleSystem Firework;
     private MovementCharacter movementCharacter;
-    public Button restartButton;
     public Button nextButton;
-    private InGameManager inGameManager;
-    public TMP_Text level;
     public TMP_Text apresiasi;
     public TMP_Text isi;
 
-    private int bintangYangDidapat;
 
     public AudioClip winSound;
     public AudioClip star1Sound;
@@ -30,43 +22,20 @@ public class Win : MonoBehaviour
 
     public AudioClip trompetSound;
 
-
+    private int totalBintang;
 
 
     void Start()
     {
         movementCharacter = FindFirstObjectByType<MovementCharacter>();
-        inGameManager = FindFirstObjectByType<InGameManager>();
 
-        restartButton.onClick.AddListener(Restart);
         nextButton.onClick.AddListener(Next);
 
     }
 
-    void Restart()
-    {
-        movementCharacter.ResetPosisi();
-
-        restartButton.gameObject.SetActive(false);
-        nextButton.gameObject.SetActive(false);
-        gameObject.SetActive(false);
-    }
     void Next()
     {
-        int tingkatKesulitan = PlayerPrefs.GetInt("TingkatKesulitan");
-        int level = PlayerPrefs.GetInt("Level");
-        if (level >= 5 && tingkatKesulitan <= 3)
-        {
-            tingkatKesulitan += 1;
-            level = 1;
-        }
-        else
-        {
-            level += 1;
-        }
-        PlayerPrefs.SetInt("TingkatKesulitan", tingkatKesulitan);
-        PlayerPrefs.SetInt("Level", level);
-        inGameManager.UpdateLevel();
+        SceneManager.LoadScene("LevelPage");
         movementCharacter.ResetPosisi();
         gameObject.SetActive(false);
     }
@@ -77,19 +46,14 @@ public class Win : MonoBehaviour
     }
     void OnEnable()
     {
-        int indexTingkatKesulitan = PlayerPrefs.GetInt("TingkatKesulitan") - 1;
-        int indexLevel = PlayerPrefs.GetInt("Level") - 1;
-        int solusiKode = dataSolusiWin[indexTingkatKesulitan].solusi[indexLevel];
         int totalKode = PlayerPrefs.GetInt("TotalKode");
 
-        level.text = "Level " + (indexLevel + 1);
         if (totalKode <= solusiKode)
         {
             Bintang1.SetActive(true);
             Bintang2.SetActive(true);
             Bintang3.SetActive(true);
-
-            bintangYangDidapat = 3;
+            totalBintang = 3;
             apresiasi.text = "SEMPURNA";
             isi.text = "Kamu berhasil menemukan solusi yang efisien. Kamu telah menggunakan " + totalKode + " kode!";
         }
@@ -98,8 +62,7 @@ public class Win : MonoBehaviour
             Bintang1.SetActive(true);
             Bintang2.SetActive(true);
             Bintang3.SetActive(false);
-
-            bintangYangDidapat = 2;
+            totalBintang = 2;
             apresiasi.text = "HEBAT";
             isi.text = "Kamu telah menggunakan " + totalKode + " kode. Dapatkan 3 bintang dengan menyelesaikan tantangan menggunakan " + solusiKode + " kode atau kurang.";
         }
@@ -108,12 +71,11 @@ public class Win : MonoBehaviour
             Bintang1.SetActive(true);
             Bintang2.SetActive(false);
             Bintang3.SetActive(false);
-
-            bintangYangDidapat = 1;
+            totalBintang = 1;
             apresiasi.text = "CUKUP BAGUS";
             isi.text = "Kamu telah menggunakan " + totalKode + " kode. Dapatkan 3 bintang dengan menyelesaikan tantangan menggunakan " + solusiKode + " kode atau kurang.";
         }
-        SaveLoadSystem.Instance.SaveBintang(indexTingkatKesulitan + 1, indexLevel + 1, bintangYangDidapat);
+
         Reset();  // Reset ukuran saat diaktifkan
         TopAnim(); // Jalankan animasi dari awal lagi
     }
@@ -156,10 +118,7 @@ public class Win : MonoBehaviour
 
     void Staranim()
     {
-
-
-
-        if (bintangYangDidapat == 1)
+        if (totalBintang == 1)
         {
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
@@ -172,12 +131,11 @@ public class Win : MonoBehaviour
             LeanTween.delayedCall(0.5f, () =>
             {
                 AudioSource.PlayClipAtPoint(trompetSound, Camera.main.transform.position);
-                restartButton.gameObject.SetActive(true);
                 nextButton.gameObject.SetActive(true);
             });
 
         }
-        else if (bintangYangDidapat == 2)
+        else if (totalBintang == 2)
         {
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
@@ -198,12 +156,11 @@ public class Win : MonoBehaviour
             LeanTween.delayedCall(1.5f, () =>
             {
                 AudioSource.PlayClipAtPoint(trompetSound, Camera.main.transform.position);
-                restartButton.gameObject.SetActive(true);
                 nextButton.gameObject.SetActive(true);
             });
 
         }
-        else if (bintangYangDidapat == 3)
+        else if (totalBintang == 3)
         {
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
@@ -231,7 +188,6 @@ public class Win : MonoBehaviour
             LeanTween.delayedCall(2.5f, () =>
             {
                 AudioSource.PlayClipAtPoint(trompetSound, Camera.main.transform.position);
-                restartButton.gameObject.SetActive(true);
                 nextButton.gameObject.SetActive(true);
             });
 

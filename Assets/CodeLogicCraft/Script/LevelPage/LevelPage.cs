@@ -38,8 +38,9 @@ public class LevelPage : MonoBehaviour
             {
                 perTingkatKesulitan.tingkatKesulitan.SetActive(false);
             }
-            perTingkatKesulitan.story.onClick.AddListener(() => OnClickStory(perTingkatKesulitan.story));
-            if (StorySudahKebuka(indexTingkatKesulitan + 1))
+            int tingkatKesulitanStory = indexTingkatKesulitan + 1;
+            perTingkatKesulitan.story.onClick.AddListener(() => OnClickStory(perTingkatKesulitan.story, tingkatKesulitanStory));
+            if (StorySudahKebuka(tingkatKesulitanStory))
             {
                 perTingkatKesulitan.story.transform.parent.gameObject.SetActive(true);
                 perTingkatKesulitan.lockStory.SetActive(false);
@@ -98,10 +99,11 @@ public class LevelPage : MonoBehaviour
         }
     }
 
-    void OnClickStory(Button story)
+    void OnClickStory(Button story, int tingkatKesulitan)
     {
         string namaButton = story.gameObject.name;
-        Debug.Log("Button Story di Klik dengan nama button = " + namaButton);
+        PlayerPrefs.SetInt("TingkatKesulitan", tingkatKesulitan);
+        Debug.Log("Button Story di Klik dengan nama button = " + namaButton + ", Dengan tingkat Kesulitan = " + tingkatKesulitan);
         if (namaButton == "mulaiDasar")
         {
             SceneManager.LoadScene("StoryDasar");

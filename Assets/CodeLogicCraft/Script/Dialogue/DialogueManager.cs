@@ -16,11 +16,13 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialogPanel;
 
     public bool apakahBisaDiskip = false;
+    public GameObject nextObject;
     public float typingSpeed = 0.05f;
 
     private int currentLineIndex = 0;
     private bool isTyping = false;
     private Coroutine typingCoroutine;
+
 
     void Start()
     {
@@ -92,6 +94,10 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialog()
     {
+        if (apakahBisaDiskip)
+        {
+            nextObject.SetActive(true);
+        }
         dialogPanel.SetActive(false);
     }
 }

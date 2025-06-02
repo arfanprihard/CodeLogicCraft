@@ -37017,7 +37017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e0bc0fb52e7864f8310fac330dddef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: LevelPage
+  scene: TutorialDasar
   tingkatKesulitan: 1
 --- !u!4 &1097072313
 Transform:
@@ -51004,6 +51004,8 @@ MonoBehaviour:
     delayBetweenLines: 5
   dialogText: {fileID: 1445083917}
   dialogPanel: {fileID: 1445083918}
+  apakahBisaDiskip: 0
+  nextObject: {fileID: 0}
   typingSpeed: 0.02
 --- !u!4 &1445372645 stripped
 Transform:
@@ -62774,6 +62776,8 @@ MonoBehaviour:
     delayBetweenLines: 2
   dialogText: {fileID: 502472219}
   dialogPanel: {fileID: 1825863692}
+  apakahBisaDiskip: 0
+  nextObject: {fileID: 0}
   typingSpeed: 0.02
 --- !u!224 &1825863696 stripped
 RectTransform:
@@ -71852,6 +71856,8 @@ MonoBehaviour:
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}
   dialogPanel: {fileID: 4977057915838987441}
+  apakahBisaDiskip: 0
+  nextObject: {fileID: 0}
   typingSpeed: 0.02
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

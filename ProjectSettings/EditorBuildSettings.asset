@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/CodeLogicCraft/Scenes/StoryDasar.unity
     guid: 613935fcd7461fb439eca41849dad712
   - enabled: 1
+    path: Assets/CodeLogicCraft/Scenes/TutorialDasar.unity
+    guid: 91e3931f6bfbac249a7ae15bf60282e4
+  - enabled: 1
     path: Assets/CodeLogicCraft/Scenes/StoryPerulangan.unity
     guid: fc3110485a5fe3b498c3768ab6977759
   - enabled: 1
@@ -35,9 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CodeLogicCraft/Scenes/InGame.unity
     guid: 47a64142a7f1e5e43a93341157820fcd
-  - enabled: 1
-    path: Assets/CodeLogicCraft/Scenes/InGameBackup.unity
-    guid: e3ba27098c6266445b7145a9ade2ba26
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -463,5 +463,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
         return false;
     }
+    public bool GetIsDragging()
+    {
+        return isDragging;
+    }
 
 }

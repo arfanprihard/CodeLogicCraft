@@ -12,7 +12,7 @@ public class Win : MonoBehaviour
     }
     public DataSolusiWin[] dataSolusiWin;
     [SerializeField] GameObject Body, Top, Bintang1, Bintang2, Bintang3;
-    [SerializeField] ParticleSystem Firework1, SubEmitter1, Firework2, SubEmitter2;
+    [SerializeField] ParticleSystem Firework;
     private MovementCharacter movementCharacter;
     public Button restartButton;
     public Button nextButton;
@@ -122,23 +122,14 @@ public class Win : MonoBehaviour
         Bintang1.transform.localScale = Vector3.zero;
         Bintang2.transform.localScale = Vector3.zero;
         Bintang3.transform.localScale = Vector3.zero;
-        Firework1.Stop();
-        Firework2.Stop();
-        SubEmitter1.Stop();
-        SubEmitter2.Stop();
-        Firework1.gameObject.SetActive(false);
-        Firework2.gameObject.SetActive(false);
-        SubEmitter1.gameObject.SetActive(false);
-        SubEmitter2.gameObject.SetActive(false);
+        Firework.Stop();
+        Firework.gameObject.SetActive(false);
     }
     void TopAnim()
     {
-        Firework1.gameObject.SetActive(true);
-        Firework2.gameObject.SetActive(true);
-        SubEmitter1.gameObject.SetActive(true);
-        SubEmitter2.gameObject.SetActive(true);
+        Firework.Play();
+        Firework.gameObject.SetActive(true);
 
-        LaunchRocket();
         AudioSource.PlayClipAtPoint(winSound, Camera.main.transform.position);
         // Menunggu 1 detik setelah pemanggilan LaunchRocket, baru lanjutkan animasi berikutnya
         LeanTween.delayedCall(1f, () =>
@@ -204,29 +195,6 @@ public class Win : MonoBehaviour
 
     }
 
-
-    void LaunchRocket()
-    {
-        Firework1.Play();  // Main roket pas mulai terbang
-        Firework2.Play();  // Main roket pas mulai terbang
-
-        // Nunggu roket selesai buat meledak jadi kembang api
-        LeanTween.delayedCall(0f, () =>  // Roket terbang selama 2.5 detik
-        {
-            // Firework1.Stop();  // Berhenti di puncak
-            // Firework2.Stop();  // Berhenti di puncak
-
-            // Nunggu buat mulai kembang api
-            LeanTween.delayedCall(0f, () =>  // Delay 1 detik sebelum kembang api
-            {
-                SubEmitter1.transform.position = Firework1.transform.position;  // Pindah kembang api ke roket
-
-                SubEmitter1.Play();  // Mulai kembang api 🎆
-                SubEmitter2.transform.position = Firework2.transform.position;  // Pindah kembang api ke roket
-                SubEmitter2.Play();  // Mulai kembang api 🎆
-            });
-        });
-    }
 
 
 }

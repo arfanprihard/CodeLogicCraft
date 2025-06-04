@@ -16,12 +16,19 @@ public class CheckDropZoneTutorial : MonoBehaviour
         if (draggable.CountTaggedActiveChildren(main.transform) >= maxTotalMain)
         {
             currentObject.SetActive(false);
-            nextObject.SetActive(true);
+            if (nextObject != null)
+            {
+                nextObject.SetActive(true);
+            }
+
         }
         else
         {
             currentObject.SetActive(true);
-            nextObject.SetActive(false);
+            if (nextObject != null)
+            {
+                nextObject.SetActive(false);
+            }
         }
     }
 }

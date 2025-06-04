@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/CodeLogicCraft/Scenes/StoryPerulangan.unity
     guid: fc3110485a5fe3b498c3768ab6977759
   - enabled: 1
+    path: Assets/CodeLogicCraft/Scenes/TutorialPerulangan.unity
+    guid: 130b737b95efb244f9938b6f6eb905f5
+  - enabled: 1
     path: Assets/CodeLogicCraft/Scenes/StoryPercabangan.unity
     guid: 1c6b79bc404128d4daef9756985847ee
   - enabled: 1

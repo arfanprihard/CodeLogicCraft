@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -196,7 +197,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     Debug.Log("Menemukan Button");
                     return;
                 }
-                else if (hitObject.CompareTag("DropZone"))
+                else if (hitObject.CompareTag("DropZone") && (SceneManager.GetActiveScene().name != "TutorialPerulangan" || currentClone.name == "LoopIn"))
                 {
                     if (hitObject.name == "Method" && IsThereMethodButton(currentClone.transform))
                     {
@@ -230,14 +231,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
                         Debug.Log($"Local X: {localPoint.x}, HalfWidth: {halfWidth}");
 
-                        if (localPoint.x < -halfWidth + regionThreshold)
+                        if (localPoint.x < -halfWidth + regionThreshold && SceneManager.GetActiveScene().name != "TutorialPerulangan")
                         {
                             Debug.Log("Kena kiri");
 
                             SetPlaceHolder(currentDropZone, currentParent, 0);
                             return;
                         }
-                        else if (localPoint.x > halfWidth - regionThreshold)
+                        else if (localPoint.x > halfWidth - regionThreshold && SceneManager.GetActiveScene().name != "TutorialPerulangan")
                         {
                             Debug.Log("Kena kanan");
 

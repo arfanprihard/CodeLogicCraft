@@ -67,9 +67,26 @@ public class DialogueManager : MonoBehaviour
 
         string line = dialogLines[currentLineIndex].text;
 
-        foreach (char c in line)
+        int i = 0;
+        while (i < line.Length)
         {
-            dialogText.text += c;
+            // Jika menemukan tag TMP seperti <b>, <i>, <color>, dll
+            if (line[i] == '<')
+            {
+                int tagEnd = line.IndexOf('>', i);
+                if (tagEnd != -1)
+                {
+                    string tag = line.Substring(i, tagEnd - i + 1);
+                    dialogText.text += tag;
+                    i = tagEnd + 1;
+                    continue;
+                }
+            }
+
+            // Karakter biasa
+            dialogText.text += line[i];
+            i++;
+
             yield return new WaitForSeconds(typingSpeed);
         }
 
@@ -77,7 +94,6 @@ public class DialogueManager : MonoBehaviour
 
         yield return new WaitForSeconds(dialogLines[currentLineIndex].delayBetweenLines);
 
-        // Lanjut otomatis hanya jika tidak bisa diskip
         if (!apakahBisaDiskip)
         {
             currentLineIndex++;
@@ -92,9 +108,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+
     void EndDialog()
     {
-        if (apakahBisaDiskip)
+        if (apakahBisaDiskip && nextObject != null)
         {
             nextObject.SetActive(true);
         }

@@ -49,6 +49,15 @@ public class SaveLoadSystem : MonoBehaviour
         Debug.Log(dataPath);
 
     }
+    // Untuk Enkripsi Data
+    // public void SaveGame()
+    // {
+    //     string jsonData = JsonUtility.ToJson(gameData, true); // Serialize
+    //     string encrypted = EncryptionUtility.Encrypt(jsonData); // Encrypt
+    //     File.WriteAllText(GetPath(), encrypted); // Simpan terenkripsi
+    //     Debug.Log("Game disimpan terenkripsi di: " + GetPath());
+    // }
+
 
     // ==============================
     // Load Game
@@ -68,6 +77,22 @@ public class SaveLoadSystem : MonoBehaviour
             Debug.LogWarning("File savegame.json tidak ditemukan!");
         }
     }
+    // Untuk Enkripsi Data
+    // public void LoadGame()
+    // {
+    //     if (File.Exists(GetPath()))
+    //     {
+    //         string encrypted = File.ReadAllText(GetPath());
+    //         string decrypted = EncryptionUtility.Decrypt(encrypted); // Dekripsi
+    //         gameData = JsonUtility.FromJson<GameData>(decrypted); // Deserialize
+    //         Debug.Log("Load berhasil dan terdekripsi!");
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("File savegame.json tidak ditemukan!");
+    //     }
+    // }
+
 
     // ==============================
     // Simpan Bintang

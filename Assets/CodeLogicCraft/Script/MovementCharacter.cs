@@ -158,7 +158,7 @@ public class MovementCharacter : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Item"))
         {

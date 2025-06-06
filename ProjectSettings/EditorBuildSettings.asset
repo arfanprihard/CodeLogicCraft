@@ -33,8 +33,14 @@ EditorBuildSettings:
     path: Assets/CodeLogicCraft/Scenes/StoryPercabangan.unity
     guid: 1c6b79bc404128d4daef9756985847ee
   - enabled: 1
+    path: Assets/CodeLogicCraft/Scenes/TutorialPercabangan.unity
+    guid: 3e731813ddcfd8e478be92ab41b6e030
+  - enabled: 1
     path: Assets/CodeLogicCraft/Scenes/StoryMethod.unity
     guid: f2ea77c6874838a4880e9a04818d35ee
+  - enabled: 1
+    path: Assets/CodeLogicCraft/Scenes/TutorialMethod.unity
+    guid: a96c9ad106f52354fa3dc485ef1c7172
   - enabled: 1
     path: Assets/CodeLogicCraft/Scenes/StoryEnding.unity
     guid: 7e36cc505ed44fe4c824fa073dddebcd

@@ -46432,7 +46432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e0bc0fb52e7864f8310fac330dddef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: TutorialPerulangan
+  scene: TutorialPercabangan
   tingkatKesulitan: 3
 --- !u!4 &1097072313
 Transform:

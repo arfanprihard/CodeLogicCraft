@@ -4,6 +4,7 @@ public class CheckDropZoneTutorial : MonoBehaviour
 {
     public int maxTotalMain;
     public GameObject main;
+    public string nameObject = "";
     public GameObject nextObject;
     public GameObject currentObject;
     private Draggable draggable;
@@ -13,22 +14,47 @@ public class CheckDropZoneTutorial : MonoBehaviour
     }
     void Update()
     {
-        if (draggable.CountTaggedActiveChildren(main.transform) >= maxTotalMain)
+        if (nameObject == "")
         {
-            currentObject.SetActive(false);
-            if (nextObject != null)
+            if (draggable.CountTaggedActiveChildren(main.transform) >= maxTotalMain)
             {
-                nextObject.SetActive(true);
-            }
+                currentObject.SetActive(false);
+                if (nextObject != null)
+                {
+                    nextObject.SetActive(true);
+                }
 
+            }
+            else
+            {
+                currentObject.SetActive(true);
+                if (nextObject != null)
+                {
+                    nextObject.SetActive(false);
+                }
+            }
         }
         else
         {
-            currentObject.SetActive(true);
-            if (nextObject != null)
+            if (IsThereButton(main.transform, nameObject))
             {
-                nextObject.SetActive(false);
+                currentObject.SetActive(false);
+                if (nextObject != null)
+                {
+                    nextObject.SetActive(true);
+                }
             }
         }
+    }
+    private bool IsThereButton(Transform parent, string name)
+    {
+        foreach (Transform child in parent.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == name)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

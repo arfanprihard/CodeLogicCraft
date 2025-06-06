@@ -172,7 +172,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     Debug.Log("Menemukan PlaceHolder - Tidak bisa menempatkan lagi");
                     return;
                 }
-                else if (hitObject.CompareTag("Button"))
+                else if (hitObject.CompareTag("Button") && SceneManager.GetActiveScene().name != "TutorialPercabangan" && SceneManager.GetActiveScene().name != "TutorialMethod")
                 {
                     if (FindDropZone(hitObject.transform).name == "Method" && IsThereMethodButton(currentClone.transform))
                     {
@@ -197,8 +197,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     Debug.Log("Menemukan Button");
                     return;
                 }
-                else if (hitObject.CompareTag("DropZone") && (SceneManager.GetActiveScene().name != "TutorialPerulangan" || currentClone.name == "LoopIn"))
+                else if (hitObject.CompareTag("DropZone") && SceneManager.GetActiveScene().name != "TutorialPerulangan" && SceneManager.GetActiveScene().name != "TutorialPercabangan")
                 {
+                    if (hitObject.name == "Main" && currentClone.name == "Step" && SceneManager.GetActiveScene().name == "TutorialMethod")
+                    {
+                        continue;
+                    }
                     if (hitObject.name == "Method" && IsThereMethodButton(currentClone.transform))
                     {
                         continue;
@@ -231,14 +235,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
                         Debug.Log($"Local X: {localPoint.x}, HalfWidth: {halfWidth}");
 
-                        if (localPoint.x < -halfWidth + regionThreshold && SceneManager.GetActiveScene().name != "TutorialPerulangan")
+                        if (localPoint.x < -halfWidth + regionThreshold && SceneManager.GetActiveScene().name != "TutorialPerulangan" && SceneManager.GetActiveScene().name != "TutorialPercabangan")
                         {
                             Debug.Log("Kena kiri");
 
                             SetPlaceHolder(currentDropZone, currentParent, 0);
                             return;
                         }
-                        else if (localPoint.x > halfWidth - regionThreshold && SceneManager.GetActiveScene().name != "TutorialPerulangan")
+                        else if (localPoint.x > halfWidth - regionThreshold && SceneManager.GetActiveScene().name != "TutorialPerulangan" && SceneManager.GetActiveScene().name != "TutorialPercabangan")
                         {
                             Debug.Log("Kena kanan");
 
@@ -249,7 +253,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                         else
                         {
                             Debug.Log("Kena tengah");
-                            if (CanAcceptMoreItems(currentDropZone, currentClone.transform))
+                            if (CanAcceptMoreItems(currentDropZone, currentClone.transform) && !(currentClone.name == "Take" && SceneManager.GetActiveScene().name == "TutorialPercabangan"))
                             {
                                 clonePrefabPlaceHolder.transform.SetParent(currentParent);
                                 clonePrefabPlaceHolder.transform.SetSiblingIndex(currentParent.childCount - 2);
@@ -288,7 +292,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                         float halfWidth = rt.rect.width / 2f;
                         float regionThreshold = 10f;
 
-                        if (localPoint.x < -halfWidth + regionThreshold)
+                        if (localPoint.x < -halfWidth + regionThreshold && SceneManager.GetActiveScene().name != "TutorialPercabangan")
                         {
                             Debug.Log("Kena kiri");
 
@@ -298,7 +302,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                             SetPlaceHolder(currentDropZone, currentParent, 0);
                             return;
                         }
-                        else if (localPoint.x > halfWidth - regionThreshold)
+                        else if (localPoint.x > halfWidth - regionThreshold && SceneManager.GetActiveScene().name != "TutorialPercabangan")
                         {
                             Debug.Log("Kena kanan");
                             Transform currentParent = hitObject.transform;

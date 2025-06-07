@@ -12,7 +12,7 @@ public class Win : MonoBehaviour
     }
     public DataSolusiWin[] dataSolusiWin;
     [SerializeField] GameObject Body, Top, Bintang1, Bintang2, Bintang3;
-    [SerializeField] ParticleSystem Firework;
+    private ParticleSystem konfeti;
     private MovementCharacter movementCharacter;
     public Button restartButton;
     public Button nextButton;
@@ -32,7 +32,35 @@ public class Win : MonoBehaviour
 
 
 
+    void Awake()
+    {
+        GameObject[] semuaKamera = GameObject.FindGameObjectsWithTag("MainCamera");
 
+        foreach (GameObject kamera in semuaKamera)
+        {
+            // Cek apakah aktif di hierarchy
+            if (kamera.activeInHierarchy)
+            {
+                Debug.Log("Kamera aktif ditemukan: " + kamera.name);
+
+                // Pastikan kamera punya setidaknya 1 child
+                if (kamera.transform.childCount > 0)
+                {
+                    Transform childPertama = kamera.transform.GetChild(0);
+
+                    // Cek apakah child pertama punya komponen ParticleSystem
+                    konfeti = childPertama.GetComponent<ParticleSystem>();
+                }
+                else
+                {
+                    Debug.LogWarning("Kamera tidak memiliki child.");
+                }
+
+                // Jika hanya ingin kamera pertama yang aktif, hentikan di sini
+                break;
+            }
+        }
+    }
     void Start()
     {
         movementCharacter = FindFirstObjectByType<MovementCharacter>();
@@ -124,13 +152,13 @@ public class Win : MonoBehaviour
         Bintang1.transform.localScale = Vector3.zero;
         Bintang2.transform.localScale = Vector3.zero;
         Bintang3.transform.localScale = Vector3.zero;
-        Firework.Stop();
-        Firework.gameObject.SetActive(false);
+        konfeti.Stop();
+        konfeti.gameObject.SetActive(false);
     }
     void TopAnim()
     {
-        Firework.Play();
-        Firework.gameObject.SetActive(true);
+        konfeti.Play();
+        konfeti.gameObject.SetActive(true);
 
         AudioSource.PlayClipAtPoint(winSound, Camera.main.transform.position);
         // Menunggu 1 detik setelah pemanggilan LaunchRocket, baru lanjutkan animasi berikutnya

@@ -81,6 +81,11 @@ public class LevelPage : MonoBehaviour
     void Update()
     {
         int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
+        if (tingkatanKesulitanSekarang >= 0 && tingkatanKesulitanSekarang <= 4)
+        {
+            topText.transform.parent.gameObject.SetActive(true);
+            totalBintangTxt.transform.parent.gameObject.SetActive(true);
+        }
         if (tingkatanKesulitanSekarang == 1 || tingkatanKesulitanSekarang == 0)
         {
             topText.text = "Dasar - Pergerakan";
@@ -96,6 +101,11 @@ public class LevelPage : MonoBehaviour
         else if (tingkatanKesulitanSekarang == 4)
         {
             topText.text = "Method - Panggil Bantuan";
+        }
+        else if (tingkatanKesulitanSekarang == 5)
+        {
+            topText.transform.parent.gameObject.SetActive(false);
+            totalBintangTxt.transform.parent.gameObject.SetActive(false);
         }
     }
 

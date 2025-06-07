@@ -31,7 +31,7 @@ public class SwitchLevel : MonoBehaviour
             leftLevelbt.gameObject.SetActive(false);
             rightLevelbt.gameObject.SetActive(true);
         }
-        else if (indexTingkatKesulitanYangAktif == 3)
+        else if (indexTingkatKesulitanYangAktif == tingkatKesulitan.Length - 1)
         {
             leftLevelbt.gameObject.SetActive(true);
             rightLevelbt.gameObject.SetActive(false);
@@ -58,7 +58,7 @@ public class SwitchLevel : MonoBehaviour
 
     void OnClickRightLevelBT()
     {
-        if (indexTingkatKesulitanYangAktif < 3)
+        if (indexTingkatKesulitanYangAktif < tingkatKesulitan.Length)
         {
             tingkatKesulitan[indexTingkatKesulitanYangAktif + 1].SetActive(true);
             tingkatKesulitan[indexTingkatKesulitanYangAktif].SetActive(false);

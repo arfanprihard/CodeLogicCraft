@@ -3,7 +3,7 @@ using UnityEngine;
 public class CharacterRotation : MonoBehaviour
 {
     [Header("Rotation Settings")]
-    public float rotationSpeed = 3000f;
+    public float rotationSpeed = 100f;
     public float autoRotateSpeed = 20f;
     public bool autoRotate = true;
 

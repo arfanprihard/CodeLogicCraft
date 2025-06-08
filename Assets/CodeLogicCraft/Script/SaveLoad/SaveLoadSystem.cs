@@ -165,6 +165,21 @@ public class SaveLoadSystem : MonoBehaviour
     }
 
     // ==============================
+    // Mendapatkan Nama
+    // ==============================
+    public string GetNama()
+    {
+        return gameData.nama;
+    }
+    // ==============================
+    // Mendapatkan Bintang Level Terakhir
+    // ==============================
+    public int GetBintangLevelTerakhir()
+    {
+        return gameData.bintangKesulitan4[4];
+    }
+
+    // ==============================
     // Buat Game Baru
     // ==============================
     public void NewGame(string nama)

@@ -22,6 +22,18 @@ public class MovementCharacter : MonoBehaviour
     private GameObject itemTake;
     private Animator animator;
 
+    [Header("Footstep Sounds")]
+    public AudioClip walkSounds;
+    public float footstepInterval = 0.35f;
+    private float footstepTimer = 0f;
+
+    [Header("Action Sounds")]
+    public AudioClip turnLeftRightSound;
+    public AudioClip takeItemSound;
+    public AudioClip itemTaked;
+
+    public AudioSource audioSource;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -29,6 +41,8 @@ public class MovementCharacter : MonoBehaviour
         posisiAwal = transform.position;
         // Simpan rotasi awal
         rotasiAwal = transform.rotation;
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -37,10 +51,30 @@ public class MovementCharacter : MonoBehaviour
         {
             MoveTowardsTarget();
             animator.SetBool("isMoving", true);
+            if (footstepTimer == 0f)
+            {
+                PlayFootstep();
+            }
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                PlayFootstep();
+                footstepTimer = 0f;
+            }
         }
         else
         {
             animator.SetBool("isMoving", false);
+            footstepTimer = 0f;
+        }
+    }
+
+    private void PlayFootstep()
+    {
+        if (audioSource != null)
+        {
+            audioSource.pitch = Random.Range(0.95f, 1.05f);
+            audioSource.PlayOneShot(walkSounds);
         }
     }
 
@@ -113,12 +147,21 @@ public class MovementCharacter : MonoBehaviour
     public void HadapKiri()
     {
         StartCoroutine(RotateToAngle(-90));
+        PlayTurnLeftRightSound();
     }
 
     // Hadap kanan (rotasi +90 derajat)
     public void HadapKanan()
     {
         StartCoroutine(RotateToAngle(90));
+        PlayTurnLeftRightSound();
+    }
+    private void PlayTurnLeftRightSound()
+    {
+        if (turnLeftRightSound != null)
+        {
+            audioSource.PlayOneShot(turnLeftRightSound, 0.5f);
+        }
     }
 
     // Coroutine untuk rotasi ke sudut tertentu
@@ -158,7 +201,7 @@ public class MovementCharacter : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Item"))
         {
@@ -192,8 +235,16 @@ public class MovementCharacter : MonoBehaviour
     public void TakeItem()
     {
         animator.SetTrigger("triggerTakeItem");
-        // Mulai Coroutine untuk menunggu selama 2 detik
-        StartCoroutine(WaitForTimeAndTakeItem(2f)); // 2 detik jeda
+        PlayTakeItemSound();
+        StartCoroutine(WaitForTimeAndTakeItem(2f));
+    }
+
+    private void PlayTakeItemSound()
+    {
+        if (takeItemSound != null)
+        {
+            audioSource.PlayOneShot(takeItemSound, 0.7f);
+        }
     }
 
     // Coroutine untuk menunggu waktu tertentu (misalnya 2 detik)
@@ -206,6 +257,14 @@ public class MovementCharacter : MonoBehaviour
         // Menambahkan item ke stack dan menonaktifkan item
         itemStack.Push(itemTake);
         itemStack.Peek().SetActive(false);
+        PlayItemTakedSound();
+    }
+    private void PlayItemTakedSound()
+    {
+        if (itemTaked != null)
+        {
+            audioSource.PlayOneShot(itemTaked, 0.5f);
+        }
     }
 
     public bool CekFinish()

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Win : MonoBehaviour
 {
@@ -23,49 +24,20 @@ public class Win : MonoBehaviour
 
     private int bintangYangDidapat;
 
-    public AudioClip winSound;
-    public AudioClip star1Sound;
-    public AudioClip star2Sound;
-    public AudioClip star3Sound;
+    private bool sudahMenang = false;
+    public AudioSource audioSourceWin;
+    public AudioSource audioSourceStar1;
+    public AudioSource audioSourceStar2;
+    public AudioSource audioSourceStar3;
+    public AudioSource audioSourceTrompet;
 
-    public AudioClip trompetSound;
-
-
-
-    void Awake()
-    {
-        GameObject[] semuaKamera = GameObject.FindGameObjectsWithTag("MainCamera");
-
-        foreach (GameObject kamera in semuaKamera)
-        {
-            // Cek apakah aktif di hierarchy
-            if (kamera.activeInHierarchy)
-            {
-                Debug.Log("Kamera aktif ditemukan: " + kamera.name);
-
-                // Pastikan kamera punya setidaknya 1 child
-                if (kamera.transform.childCount > 0)
-                {
-                    Transform childPertama = kamera.transform.GetChild(0);
-
-                    // Cek apakah child pertama punya komponen ParticleSystem
-                    konfeti = childPertama.GetComponent<ParticleSystem>();
-                }
-                else
-                {
-                    Debug.LogWarning("Kamera tidak memiliki child.");
-                }
-
-                // Jika hanya ingin kamera pertama yang aktif, hentikan di sini
-                break;
-            }
-        }
-    }
     void Start()
     {
+
         movementCharacter = FindFirstObjectByType<MovementCharacter>();
         inGameManager = FindFirstObjectByType<InGameManager>();
-
+        restartButton.gameObject.SetActive(false);
+        nextButton.gameObject.SetActive(false);
         restartButton.onClick.AddListener(Restart);
         nextButton.onClick.AddListener(Next);
 
@@ -73,30 +45,48 @@ public class Win : MonoBehaviour
 
     void Restart()
     {
+        sudahMenang = false;
         movementCharacter.ResetPosisi();
-
+        audioSourceWin.Stop();
+        audioSourceStar1.Stop();
+        audioSourceStar2.Stop();
+        audioSourceStar3.Stop();
+        audioSourceTrompet.Stop();
         restartButton.gameObject.SetActive(false);
         nextButton.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
     void Next()
     {
+        sudahMenang = false;
+        audioSourceWin.Stop();
+        audioSourceStar1.Stop();
+        audioSourceStar2.Stop();
+        audioSourceStar3.Stop();
+        audioSourceTrompet.Stop();
+        restartButton.gameObject.SetActive(false);
+        nextButton.gameObject.SetActive(false);
         int tingkatKesulitan = PlayerPrefs.GetInt("TingkatKesulitan");
         int level = PlayerPrefs.GetInt("Level");
-        if (level >= 5 && tingkatKesulitan <= 3)
+        if (level >= 5 && tingkatKesulitan <= 4)
         {
             tingkatKesulitan += 1;
             level = 1;
+            PlayerPrefs.SetInt("TingkatKesulitan", tingkatKesulitan);
+            PlayerPrefs.SetInt("Level", level);
+            SceneManager.LoadScene("LevelPage");
         }
         else
         {
             level += 1;
+            PlayerPrefs.SetInt("TingkatKesulitan", tingkatKesulitan);
+            PlayerPrefs.SetInt("Level", level);
+            inGameManager.UpdateLevel();
+            movementCharacter.ResetPosisi();
+            gameObject.SetActive(false);
         }
-        PlayerPrefs.SetInt("TingkatKesulitan", tingkatKesulitan);
-        PlayerPrefs.SetInt("Level", level);
-        inGameManager.UpdateLevel();
-        movementCharacter.ResetPosisi();
-        gameObject.SetActive(false);
+
+
     }
 
     void OnDisable()
@@ -105,6 +95,30 @@ public class Win : MonoBehaviour
     }
     void OnEnable()
     {
+        GameObject[] semuaKamera = GameObject.FindGameObjectsWithTag("MainCamera");
+
+        foreach (GameObject kamera in semuaKamera)
+        {
+            if (kamera.activeInHierarchy)
+            {
+                Debug.Log("Kamera aktif ditemukan: " + kamera.name);
+
+                if (kamera.transform.childCount > 0)
+                {
+                    Transform childPertama = kamera.transform.GetChild(0);
+
+                    konfeti = childPertama.GetComponent<ParticleSystem>();
+                }
+                else
+                {
+                    Debug.LogWarning("Kamera tidak memiliki child.");
+                }
+
+                break;
+            }
+        }
+        if (sudahMenang) return;
+        sudahMenang = true;
         int indexTingkatKesulitan = PlayerPrefs.GetInt("TingkatKesulitan") - 1;
         int indexLevel = PlayerPrefs.GetInt("Level") - 1;
         int solusiKode = dataSolusiWin[indexTingkatKesulitan].solusi[indexLevel];
@@ -147,12 +161,14 @@ public class Win : MonoBehaviour
     }
     void Reset()
     {
+        sudahMenang = false;
         Top.transform.localScale = Vector3.zero;
         Body.transform.localScale = Vector3.zero;
         Bintang1.transform.localScale = Vector3.zero;
         Bintang2.transform.localScale = Vector3.zero;
         Bintang3.transform.localScale = Vector3.zero;
         konfeti.Stop();
+
         konfeti.gameObject.SetActive(false);
     }
     void TopAnim()
@@ -160,7 +176,7 @@ public class Win : MonoBehaviour
         konfeti.Play();
         konfeti.gameObject.SetActive(true);
 
-        AudioSource.PlayClipAtPoint(winSound, Camera.main.transform.position);
+        audioSourceWin.Play();
         // Menunggu 1 detik setelah pemanggilan LaunchRocket, baru lanjutkan animasi berikutnya
         LeanTween.delayedCall(1f, () =>
         {
@@ -184,22 +200,19 @@ public class Win : MonoBehaviour
 
     void Staranim()
     {
-
-
-
         if (bintangYangDidapat == 1)
         {
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
                     {
-                        AudioSource.PlayClipAtPoint(star1Sound, Camera.main.transform.position);
+                        audioSourceStar1.Play();
                         LeanTween.scale(Bintang1, new Vector3(30f, 30f, 30f), 2f)
                             .setEase(LeanTweenType.easeOutElastic);
                     });
             // Trompet
             LeanTween.delayedCall(0.5f, () =>
             {
-                AudioSource.PlayClipAtPoint(trompetSound, Camera.main.transform.position);
+                audioSourceTrompet.Play();
                 restartButton.gameObject.SetActive(true);
                 nextButton.gameObject.SetActive(true);
             });
@@ -210,7 +223,7 @@ public class Win : MonoBehaviour
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
                     {
-                        AudioSource.PlayClipAtPoint(star1Sound, Camera.main.transform.position);
+                        audioSourceStar1.Play();
                         LeanTween.scale(Bintang1, new Vector3(30f, 30f, 30f), 2f)
                             .setEase(LeanTweenType.easeOutElastic);
                     });
@@ -218,14 +231,14 @@ public class Win : MonoBehaviour
             // Bintang 2
             LeanTween.delayedCall(1f, () =>
             {
-                AudioSource.PlayClipAtPoint(star2Sound, Camera.main.transform.position);
+                audioSourceStar2.Play();
                 LeanTween.scale(Bintang2, new Vector3(30f, 30f, 30f), 2f)
                     .setEase(LeanTweenType.easeOutElastic);
             });
             // Trompet
             LeanTween.delayedCall(1.5f, () =>
             {
-                AudioSource.PlayClipAtPoint(trompetSound, Camera.main.transform.position);
+                audioSourceTrompet.Play();
                 restartButton.gameObject.SetActive(true);
                 nextButton.gameObject.SetActive(true);
             });
@@ -236,7 +249,8 @@ public class Win : MonoBehaviour
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
                     {
-                        AudioSource.PlayClipAtPoint(star1Sound, Camera.main.transform.position);
+
+                        audioSourceStar1.Play();
                         LeanTween.scale(Bintang1, new Vector3(30f, 30f, 30f), 2f)
                             .setEase(LeanTweenType.easeOutElastic);
                     });
@@ -244,21 +258,21 @@ public class Win : MonoBehaviour
             // Bintang 2
             LeanTween.delayedCall(1f, () =>
             {
-                AudioSource.PlayClipAtPoint(star2Sound, Camera.main.transform.position);
+                audioSourceStar2.Play();
                 LeanTween.scale(Bintang2, new Vector3(30f, 30f, 30f), 2f)
                     .setEase(LeanTweenType.easeOutElastic);
             });
             // Bintang 3
             LeanTween.delayedCall(2f, () =>
             {
-                AudioSource.PlayClipAtPoint(star3Sound, Camera.main.transform.position);
+                audioSourceStar3.Play();
                 LeanTween.scale(Bintang3, new Vector3(30f, 30f, 30f), 2f)
                     .setEase(LeanTweenType.easeOutElastic);
             });
             // Trompet
             LeanTween.delayedCall(2.5f, () =>
             {
-                AudioSource.PlayClipAtPoint(trompetSound, Camera.main.transform.position);
+                audioSourceTrompet.Play();
                 restartButton.gameObject.SetActive(true);
                 nextButton.gameObject.SetActive(true);
             });
@@ -268,6 +282,7 @@ public class Win : MonoBehaviour
 
 
     }
+
 
 
 

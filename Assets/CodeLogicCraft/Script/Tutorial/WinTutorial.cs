@@ -94,7 +94,10 @@ public class WinTutorial : MonoBehaviour
         Firework.Play();
         Firework.gameObject.SetActive(true);
 
-        AudioSource.PlayClipAtPoint(winSound, Camera.main.transform.position);
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = winSound;
+        audioSource.volume = 0.85f;
+        audioSource.Play();
         // Menunggu 1 detik setelah pemanggilan LaunchRocket, baru lanjutkan animasi berikutnya
         LeanTween.delayedCall(1f, () =>
         {
@@ -123,7 +126,9 @@ public class WinTutorial : MonoBehaviour
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
                     {
-                        AudioSource.PlayClipAtPoint(star1Sound, Camera.main.transform.position);
+                        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                        audioSource.clip = star1Sound;
+                        audioSource.Play();
                         LeanTween.scale(Bintang1, new Vector3(30f, 30f, 30f), 2f)
                             .setEase(LeanTweenType.easeOutElastic);
                     });
@@ -140,7 +145,9 @@ public class WinTutorial : MonoBehaviour
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
                     {
-                        AudioSource.PlayClipAtPoint(star1Sound, Camera.main.transform.position);
+                        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                        audioSource.clip = star1Sound;
+                        audioSource.Play();
                         LeanTween.scale(Bintang1, new Vector3(30f, 30f, 30f), 2f)
                             .setEase(LeanTweenType.easeOutElastic);
                     });
@@ -148,7 +155,9 @@ public class WinTutorial : MonoBehaviour
             // Bintang 2
             LeanTween.delayedCall(1f, () =>
             {
-                AudioSource.PlayClipAtPoint(star2Sound, Camera.main.transform.position);
+                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.clip = star2Sound;
+                audioSource.Play();
                 LeanTween.scale(Bintang2, new Vector3(30f, 30f, 30f), 2f)
                     .setEase(LeanTweenType.easeOutElastic);
             });
@@ -165,7 +174,9 @@ public class WinTutorial : MonoBehaviour
             // Bintang 1
             LeanTween.delayedCall(0f, () =>
                     {
-                        AudioSource.PlayClipAtPoint(star1Sound, Camera.main.transform.position);
+                        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                        audioSource.clip = star1Sound;
+                        audioSource.Play();
                         LeanTween.scale(Bintang1, new Vector3(30f, 30f, 30f), 2f)
                             .setEase(LeanTweenType.easeOutElastic);
                     });
@@ -173,14 +184,18 @@ public class WinTutorial : MonoBehaviour
             // Bintang 2
             LeanTween.delayedCall(1f, () =>
             {
-                AudioSource.PlayClipAtPoint(star2Sound, Camera.main.transform.position);
+                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.clip = star2Sound;
+                audioSource.Play();
                 LeanTween.scale(Bintang2, new Vector3(30f, 30f, 30f), 2f)
                     .setEase(LeanTweenType.easeOutElastic);
             });
             // Bintang 3
             LeanTween.delayedCall(2f, () =>
             {
-                AudioSource.PlayClipAtPoint(star3Sound, Camera.main.transform.position);
+                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.clip = star3Sound;
+                audioSource.Play();
                 LeanTween.scale(Bintang3, new Vector3(30f, 30f, 30f), 2f)
                     .setEase(LeanTweenType.easeOutElastic);
             });

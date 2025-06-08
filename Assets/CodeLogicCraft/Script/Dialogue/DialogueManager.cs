@@ -17,12 +17,16 @@ public class DialogueManager : MonoBehaviour
 
     public bool apakahBisaDiskip = false;
     public GameObject nextObject;
+
     public float typingSpeed = 0.05f;
+    public AudioClip typingSound;
+    public AudioSource audioSource;
+
+    public int soundInterval = 3;
 
     private int currentLineIndex = 0;
     private bool isTyping = false;
     private Coroutine typingCoroutine;
-
 
     void Start()
     {
@@ -32,19 +36,16 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        // Cek input untuk skip (klik mouse kiri di mana saja)
         if (apakahBisaDiskip && Input.GetMouseButtonDown(0))
         {
             if (isTyping)
             {
-                // Langsung tampilkan semua teks jika masih mengetik
                 StopCoroutine(typingCoroutine);
                 dialogText.text = dialogLines[currentLineIndex].text;
                 isTyping = false;
             }
             else
             {
-                // Lanjut ke dialog berikutnya
                 currentLineIndex++;
                 if (currentLineIndex < dialogLines.Length)
                 {
@@ -58,7 +59,6 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
     IEnumerator ShowDialog()
     {
         isTyping = true;
@@ -66,11 +66,11 @@ public class DialogueManager : MonoBehaviour
         dialogText.text = "";
 
         string line = dialogLines[currentLineIndex].text;
-
         int i = 0;
+        int charCount = 0;
+
         while (i < line.Length)
         {
-            // Jika menemukan tag TMP seperti <b>, <i>, <color>, dll
             if (line[i] == '<')
             {
                 int tagEnd = line.IndexOf('>', i);
@@ -83,15 +83,23 @@ public class DialogueManager : MonoBehaviour
                 }
             }
 
-            // Karakter biasa
             dialogText.text += line[i];
-            i++;
 
+            if (!char.IsWhiteSpace(line[i]))
+            {
+                charCount++;
+                if (charCount % soundInterval == 0 && typingSound != null && audioSource != null)
+                {
+                    audioSource.pitch = Random.Range(1.8f, 2f);
+                    audioSource.PlayOneShot(typingSound, 0.3f);
+                }
+            }
+
+            i++;
             yield return new WaitForSeconds(typingSpeed);
         }
 
         isTyping = false;
-
         yield return new WaitForSeconds(dialogLines[currentLineIndex].delayBetweenLines);
 
         if (!apakahBisaDiskip)
@@ -107,7 +115,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
-
 
     void EndDialog()
     {

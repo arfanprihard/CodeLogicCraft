@@ -60,6 +60,13 @@ public class GameplayManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        if (method != null)
+        {
+            foreach (Transform child in method.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 
     void OnPlayClicked()

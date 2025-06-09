@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour
 {
-    public GameObject segitiga;
-    public Button playButton; // Assign di Inspector
-    public Button reloadButton; // Assign di Inspector
+    public GameObject urutanMain;
+    public GameObject urutanMethod;
+    public Button playButton;
+    public Button reloadButton;
     public GameObject playMode;
     public GameObject main;
     public GameObject method;
@@ -22,7 +23,8 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        segitiga.SetActive(false);
+        urutanMain.SetActive(false);
+        urutanMethod.SetActive(false);
         movementCharacter = FindFirstObjectByType<MovementCharacter>();
 
 
@@ -38,11 +40,20 @@ public class GameplayManager : MonoBehaviour
 
     void Update()
     {
+        if (main.transform.childCount == 0)
+        {
+            playButton.interactable = false;
+        }
+        else
+        {
+            playButton.interactable = true;
+        }
         if (!movementCharacter.IsMoving() && movementCharacter.IsOnStartPosition())
         {
             playButton.gameObject.SetActive(true);
             reloadButton.gameObject.SetActive(false);
-            segitiga.SetActive(false);
+            urutanMain.SetActive(false);
+            urutanMethod.SetActive(false);
         }
     }
 
@@ -72,7 +83,7 @@ public class GameplayManager : MonoBehaviour
     void OnPlayClicked()
     {
         if (isPlaying) return; // Mencegah duplikasi eksekusi
-        segitiga.SetActive(true);
+        urutanMain.SetActive(true);
         isPlaying = true;
 
         // Nonaktifkan tombol Play dan aktifkan tombol Pause
@@ -116,45 +127,30 @@ public class GameplayManager : MonoBehaviour
             }
             else if (name == "Percabangan" && movementCharacter.CekPercabangan())
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMain(child);
                 yield return StartCoroutine(ExecuteButtonPercabangan(child));
             }
             else if (name == "Step")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMain(child);
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
             else if (name == "HadapKiri")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMain(child);
                 movementCharacter.HadapKiri();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "HadapKanan")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMain(child);
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "Take")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMain(child);
                 if (movementCharacter.CekTakeItem())
                 {
                     movementCharacter.TakeItem();
@@ -167,10 +163,7 @@ public class GameplayManager : MonoBehaviour
             }
             else if (name == "Method")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMain(child);
                 yield return StartCoroutine(ExecuteButtonMethod());
             }
         }
@@ -199,6 +192,7 @@ public class GameplayManager : MonoBehaviour
         {
             Transform child = method.transform.GetChild(i);
             string name = child.name;
+            urutanMethod.SetActive(true);
 
             if (name == "LoopIn")
             {
@@ -215,45 +209,30 @@ public class GameplayManager : MonoBehaviour
             }
             else if (name == "Percabangan" && movementCharacter.CekPercabangan())
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMethod(child);
                 yield return StartCoroutine(ExecuteButtonPercabangan(child));
             }
             else if (name == "Step")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMethod(child);
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
             else if (name == "HadapKiri")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMethod(child);
                 movementCharacter.HadapKiri();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "HadapKanan")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMethod(child);
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "Take")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                ReplaceUrutanMethod(child);
                 if (movementCharacter.CekTakeItem())
                 {
                     movementCharacter.TakeItem();
@@ -265,6 +244,7 @@ public class GameplayManager : MonoBehaviour
                 yield return new WaitForSeconds(2.5f);
             }
         }
+        urutanMethod.SetActive(false);
     }
 
     IEnumerator ExecuteButtonLoop(Transform loopParent)
@@ -276,28 +256,40 @@ public class GameplayManager : MonoBehaviour
 
             if (name == "Step")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                if (HasParentNamedMain(child))
+                {
+                    ReplaceUrutanMain(child);
+                }
+                else
+                {
+                    ReplaceUrutanMethod(child);
+                }
                 movementCharacter.Langkah();
                 yield return new WaitUntil(() => !movementCharacter.IsMoving());
             }
             else if (name == "HadapKiri")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                if (HasParentNamedMain(child))
+                {
+                    ReplaceUrutanMain(child);
+                }
+                else
+                {
+                    ReplaceUrutanMethod(child);
+                }
                 movementCharacter.HadapKiri();
                 yield return new WaitForSeconds(0.5f);
             }
             else if (name == "HadapKanan")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                if (HasParentNamedMain(child))
+                {
+                    ReplaceUrutanMain(child);
+                }
+                else
+                {
+                    ReplaceUrutanMethod(child);
+                }
                 movementCharacter.HadapKanan();
                 yield return new WaitForSeconds(0.5f);
             }
@@ -315,26 +307,38 @@ public class GameplayManager : MonoBehaviour
             }
             else if (name == "Percabangan" && movementCharacter.CekPercabangan())
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                if (HasParentNamedMain(child))
+                {
+                    ReplaceUrutanMain(child);
+                }
+                else
+                {
+                    ReplaceUrutanMethod(child);
+                }
                 yield return StartCoroutine(ExecuteButtonPercabangan(child));
             }
             else if (name == "Method")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                if (HasParentNamedMain(child))
+                {
+                    ReplaceUrutanMain(child);
+                }
+                else
+                {
+                    ReplaceUrutanMethod(child);
+                }
                 yield return StartCoroutine(ExecuteButtonMethod());
             }
             else if (name == "Take")
             {
-                segitiga.transform.position = child.position;
-                Vector3 pos = segitiga.transform.position;
-                pos.y += 43f;
-                segitiga.transform.position = pos;
+                if (HasParentNamedMain(child))
+                {
+                    ReplaceUrutanMain(child);
+                }
+                else
+                {
+                    ReplaceUrutanMethod(child);
+                }
                 if (movementCharacter.CekTakeItem())
                 {
                     movementCharacter.TakeItem();
@@ -389,11 +393,41 @@ public class GameplayManager : MonoBehaviour
             }
         }
     }
+    void ReplaceUrutanMain(Transform child)
+    {
+        urutanMain.transform.position = child.position;
+        Vector3 pos = urutanMain.transform.position;
+
+        urutanMain.transform.position = pos;
+    }
+
+    void ReplaceUrutanMethod(Transform child)
+    {
+        urutanMethod.transform.position = child.position;
+        Vector3 pos = urutanMethod.transform.position;
+
+        urutanMethod.transform.position = pos;
+    }
+    bool HasParentNamedMain(Transform child)
+    {
+        Transform current = child.parent;
+
+        while (current != null)
+        {
+            if (current.name == "Main")
+                return true;
+
+            current = current.parent;
+        }
+
+        return false;
+    }
 
 
     void OnReloadClicked()
     {
-        segitiga.SetActive(false);
+        urutanMain.SetActive(false);
+        urutanMethod.SetActive(false);
         StopAllCoroutines(); // Hentikan semua Coroutine di GameManager
         movementCharacter.StopAllActions(); // Hentikan semua aksi di karakter
         movementCharacter.ResetPosisi(); // Reset posisi karakter

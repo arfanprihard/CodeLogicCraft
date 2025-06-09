@@ -8,12 +8,19 @@ public class LoopButton : MonoBehaviour
     private ContentSizeFitter contentSizeFitter;
     public Button jumlahLoopButton;
     private TMP_Text buttonText;
+    private AudioSource audioButtonClick;
 
     void Start()
     {
         contentSizeFitter = GetComponent<ContentSizeFitter>();
         buttonText = jumlahLoopButton.GetComponentInChildren<TMP_Text>();
         jumlahLoopButton.onClick.AddListener(OnLoopBtClicked);
+        GameObject audioObj1 = GameObject.Find("AudioButtonClick");
+
+        if (audioObj1 != null)
+        {
+            audioButtonClick = audioObj1.GetComponent<AudioSource>();
+        }
     }
 
 
@@ -36,6 +43,7 @@ public class LoopButton : MonoBehaviour
     }
     void OnLoopBtClicked()
     {
+        audioButtonClick.Play();
         string angkaString = buttonText.text;
         int angka = int.Parse(angkaString);
         if (angka < 2 || angka > 8)

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    private AudioSource audioButtonMasuk;
+    private AudioSource audioButtonKeluar;
     public Button button;
     public Transform main;
     public Transform method;
@@ -26,6 +28,16 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         canvas = GetComponentInParent<Canvas>();
         button.onClick.AddListener(OnButtonClicked);
+        GameObject audioObj1 = GameObject.Find("AudioTombolMasuk");
+        GameObject audioObj2 = GameObject.Find("AudioTombolKeluar");
+
+        if (audioObj1 != null && audioObj2 != null)
+        {
+            audioButtonMasuk = audioObj1.GetComponent<AudioSource>();
+            audioButtonKeluar = audioObj2.GetComponent<AudioSource>();
+            audioButtonMasuk.volume = 0.7f;
+            audioButtonKeluar.volume = 0.7f;
+        }
 
     }
 
@@ -43,6 +55,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             {
                 if (CanAcceptMoreItems(main, transform))
                 {
+                    audioButtonMasuk.Play();
                     SpawnClone(main);
                 }
                 else
@@ -51,6 +64,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     {
                         if (CanAcceptMoreItems(method, transform))
                         {
+                            audioButtonMasuk.Play();
                             SpawnClone(method);
                         }
 
@@ -61,6 +75,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             else
             {
                 Debug.Log("Ke destroy");
+                audioButtonKeluar.Play();
                 Destroy(gameObject);
             }
         }
@@ -75,6 +90,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
         if (prefabToClone != null && !isDragging)
         {
+
             currentClone = Instantiate(prefabToClone, parent, false);
             currentClone.name = prefabToClone.name;
             cloneRectTransform = currentClone.GetComponent<RectTransform>();
@@ -132,6 +148,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (foundDropZone)
         {
             Debug.Log("menemukan dropzone found");
+            audioButtonMasuk.Play();
             int indexPlaceHolder = clonePrefabPlaceHolder.transform.GetSiblingIndex();
             currentClone.transform.SetParent(clonePrefabPlaceHolder.transform.parent);
             currentClone.transform.SetSiblingIndex(indexPlaceHolder);
@@ -139,6 +156,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         else
         {
             Debug.Log("Tidak menemukan dropzone found");
+            audioButtonKeluar.Play();
             Destroy(currentClone);
         }
         Destroy(clonePrefabPlaceHolder);
@@ -172,7 +190,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     Debug.Log("Menemukan PlaceHolder - Tidak bisa menempatkan lagi");
                     return;
                 }
-                else if (hitObject.CompareTag("Button") && SceneManager.GetActiveScene().name != "TutorialPercabangan" && SceneManager.GetActiveScene().name != "TutorialMethod")
+                else if (hitObject.CompareTag("Button") && SceneManager.GetActiveScene().name != "TutorialPerulangan" && SceneManager.GetActiveScene().name != "TutorialPercabangan" && SceneManager.GetActiveScene().name != "TutorialMethod" && SceneManager.GetActiveScene().name != "TutorialDasar")
                 {
                     if (FindDropZone(hitObject.transform).name == "Method" && IsThereMethodButton(currentClone.transform))
                     {
@@ -197,9 +215,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     Debug.Log("Menemukan Button");
                     return;
                 }
-                else if (hitObject.CompareTag("DropZone") && SceneManager.GetActiveScene().name != "TutorialPerulangan" && SceneManager.GetActiveScene().name != "TutorialPercabangan")
+                else if (hitObject.CompareTag("DropZone") && (SceneManager.GetActiveScene().name != "TutorialPerulangan" || (currentClone.name == "LoopIn" && SceneManager.GetActiveScene().name == "TutorialPerulangan")) && SceneManager.GetActiveScene().name != "TutorialPercabangan")
                 {
-                    if (hitObject.name == "Main" && currentClone.name == "Step" && SceneManager.GetActiveScene().name == "TutorialMethod")
+                    if (hitObject.name == "Main" && (currentClone.name == "Step" || currentClone.name == "Take") && SceneManager.GetActiveScene().name == "TutorialMethod")
                     {
                         continue;
                     }

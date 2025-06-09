@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 53.424, y: -48.6}
+  m_AnchoredPosition: {x: 53.42395, y: -48.599976}
   m_SizeDelta: {x: 75.1887, y: 75.1859}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5761561142987519941
@@ -133,6 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f64939c9421208498f8a25b7cd6eedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clipButtonMasuk: {fileID: 8300000, guid: c683450f8eb7ce547b88892c700eb296, type: 3}
+  clipButtonKeluar: {fileID: 8300000, guid: e3fc2652e7c677d46ae21c218f4aaa57, type: 3}
   button: {fileID: 6001194429584022522}
   main: {fileID: 0}
   method: {fileID: 0}

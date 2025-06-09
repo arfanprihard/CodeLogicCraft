@@ -5939,6 +5939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbacc3d618e42b94b8441b5a1454c862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sertifikatPage: {fileID: 365084061}
   topText: {fileID: 540389544}
   totalBintangTxt: {fileID: 1465392310}
   homebt: {fileID: 207053915}

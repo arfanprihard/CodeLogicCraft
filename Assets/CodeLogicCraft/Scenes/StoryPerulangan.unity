@@ -68590,7 +68590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Bantu Arka mengumpulkan kayu untuk membangun tempat tinggalnya.
+  - text: Bantu Algo mengumpulkan kayu untuk membangun tempat tinggalnya.
     delayBetweenLines: 3
   dialogText: {fileID: 2016218869}
   dialogPanel: {fileID: 2016218870}
@@ -72914,7 +72914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Setelah berhasil mengumpulkan makanan, Arka mulai memikirkan langkah selanjutnya
+  - text: Setelah berhasil mengumpulkan makanan, Algo mulai memikirkan langkah selanjutnya
       untuk bertahan hidup di pulau ini.
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}

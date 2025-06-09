@@ -77833,7 +77833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Setelah berhasil membangun rumah, Arka duduk termenung. sambil memikirkan
+  - text: Setelah berhasil membangun rumah, Algo duduk termenung. sambil memikirkan
       cara untuk bertahan hidup lebih lama di pulau ini.
     delayBetweenLines: 2
   - text: Beberapa saat kemudian, ia teringat akan biji-bijian yang pernah ia temukan.
@@ -83678,7 +83678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Bantu Arka memanen hasil kebunnya.
+  - text: Bantu Algo memanen hasil kebunnya.
     delayBetweenLines: 4
   dialogText: {fileID: 2016218869}
   dialogPanel: {fileID: 2016218870}
@@ -88257,7 +88257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Setelah mengumpulkan cukup kayu, Arka segera membangun sebuah rumah sederhana
+  - text: Setelah mengumpulkan cukup kayu, Algo segera membangun sebuah rumah sederhana
       sebagai tempat berlindung.
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}

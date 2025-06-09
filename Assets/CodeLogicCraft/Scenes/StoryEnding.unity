@@ -55213,7 +55213,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -61355,7 +61355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: LevelPage
-  tingkatKesulitan: 3
+  tingkatKesulitan: 5
 --- !u!4 &1097072313
 Transform:
   m_ObjectHideFlags: 0
@@ -80566,7 +80566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Arka menaiki perahu dan berlayar menjauh. Pulau itu ia tinggalkan untuk
+  - text: Algo menaiki perahu dan berlayar menjauh. Pulau itu ia tinggalkan untuk
       selamanya.
     delayBetweenLines: 3
   dialogText: {fileID: 1445083917}
@@ -98059,7 +98059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogLines:
   - text: Beberapa waktu kemudian, perahu itu pun selesai. Dengan penuh harapan,
-      Arka mendorongnya ke laut, meninggalkan pulau terpencil itu untuk mencari pertolongan.
+      Algo mendorongnya ke laut, meninggalkan pulau terpencil itu untuk mencari pertolongan.
     delayBetweenLines: 3
   dialogText: {fileID: 502472219}
   dialogPanel: {fileID: 1825863692}
@@ -111981,7 +111981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Setelah mengumpulkan kayu dan memanen seluruh hasil kebun, Arka segera
+  - text: Setelah mengumpulkan kayu dan memanen seluruh hasil kebun, Algo segera
       membuat perahu.
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}

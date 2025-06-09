@@ -56,6 +56,7 @@ public class BacksoundManager : MonoBehaviour
             case "StoryPerulangan":
             case "StoryPercabangan":
             case "StoryMethod":
+            case "StoryEnding":
                 StopClip();
                 break;
 

@@ -10,10 +10,11 @@ public class Lose : MonoBehaviour
     private MovementCharacter movementCharacter;
     public TMP_Text level;
     public Button restartButton;
+    public AudioSource audioSourceLose;
 
     void Start()
     {
-        movementCharacter = FindObjectOfType<MovementCharacter>();
+        movementCharacter = FindFirstObjectByType<MovementCharacter>();
         restartButton.onClick.AddListener(Restart);
 
     }
@@ -37,6 +38,7 @@ public class Lose : MonoBehaviour
     }
     void TopAnim()
     {
+        audioSourceLose.Play();
         LeanTween.scale(TopGagal, new Vector3(1.5f, 1.5f, 1.5f), 2f).setDelay(.4f).setEase(LeanTweenType.easeOutElastic).setOnComplete(BodyAnim);
         LeanTween.moveLocal(TopGagal, new Vector3(-6f, 367f, 2f), 1f).setDelay(2f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.scale(TopGagal, new Vector3(1f, 1f, 1f), 2f).setDelay(1f).setEase(LeanTweenType.easeInOutCubic);

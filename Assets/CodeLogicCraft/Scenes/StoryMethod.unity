@@ -12439,7 +12439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Arka mulai mengumpulkan kayu yang cukup untuk membangun perahu impiannya.
+  - text: Algo mulai mengumpulkan kayu yang cukup untuk membangun perahu impiannya.
       Sementara itu, ia juga memanen seluruh hasil kebun yang selama ini ia rawat
       dengan susah payah sebagai bekal untuk perjalanannya.
     delayBetweenLines: 3
@@ -14204,7 +14204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Bantu Arka mengumpulkan kayu dan memanen hasil kebun sebelum ia memulai
+  - text: Bantu Algo mengumpulkan kayu dan memanen hasil kebun sebelum ia memulai
       perjalanan meninggalkan pulau ini.
     delayBetweenLines: 4
   dialogText: {fileID: 2016218869}
@@ -14959,7 +14959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Setelah berhasil bertahan hidup di tengah segala keterbatasan, Arka mulai
+  - text: Setelah berhasil bertahan hidup di tengah segala keterbatasan, Algo mulai
       merencanakan cara untuk meninggalkan pulau ini.
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}

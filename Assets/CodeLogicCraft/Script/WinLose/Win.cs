@@ -56,6 +56,31 @@ public class Win : MonoBehaviour
         nextButton.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
+    void FullScreenEnding()
+    {
+        // 1. Cari Canvas di scene
+        Canvas canvas = FindFirstObjectByType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("Canvas tidak ditemukan!");
+            return;
+        }
+
+        // 2. Buat GameObject baru
+        GameObject blackOverlay = new GameObject("BlackOverlay");
+        blackOverlay.transform.SetParent(canvas.transform, false);
+
+        // 3. Tambahkan komponen Image
+        Image img = blackOverlay.AddComponent<Image>();
+        img.color = Color.black;
+
+        // 4. Atur ukuran agar stretch ke seluruh layar
+        RectTransform rect = blackOverlay.GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;   // (0,0)
+        rect.anchorMax = Vector2.one;    // (1,1)
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+    }
     void Next()
     {
         sudahMenang = false;
@@ -68,7 +93,14 @@ public class Win : MonoBehaviour
         nextButton.gameObject.SetActive(false);
         int tingkatKesulitan = PlayerPrefs.GetInt("TingkatKesulitan");
         int level = PlayerPrefs.GetInt("Level");
-        if (level >= 5 && tingkatKesulitan <= 4)
+        if (tingkatKesulitan == 4 && level == 5)
+        {
+            tingkatKesulitan += 1;
+            PlayerPrefs.SetInt("TingkatKesulitan", tingkatKesulitan);
+            FullScreenEnding();
+            SceneManager.LoadSceneAsync("StoryEnding");
+        }
+        if (level >= 5 && tingkatKesulitan <= 3)
         {
             tingkatKesulitan += 1;
             level = 1;

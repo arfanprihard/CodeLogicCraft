@@ -53756,7 +53756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: 'Petualangan Arka di pulau tak berpenghuni ini baru saja dimulai.  '
+  - text: 'Petualangan Algo di pulau tak berpenghuni ini baru saja dimulai.  '
     delayBetweenLines: 5
   dialogText: {fileID: 1445083917}
   dialogPanel: {fileID: 1445083918}
@@ -74738,7 +74738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - text: Arka perlahan terbangun dari tidurnya, lalu tersadar bahwa ia terdampar
+  - text: Algo perlahan terbangun dari tidurnya, lalu tersadar bahwa ia terdampar
       di sebuah pulau tak berpenghuni.
     delayBetweenLines: 3
   dialogText: {fileID: 4977057915838987440}

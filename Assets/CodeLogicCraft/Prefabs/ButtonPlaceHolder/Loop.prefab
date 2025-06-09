@@ -165,6 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f64939c9421208498f8a25b7cd6eedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clipButtonMasuk: {fileID: 8300000, guid: c683450f8eb7ce547b88892c700eb296, type: 3}
+  clipButtonKeluar: {fileID: 8300000, guid: e3fc2652e7c677d46ae21c218f4aaa57, type: 3}
   button: {fileID: 3318228623850429909}
   main: {fileID: 0}
   method: {fileID: 0}

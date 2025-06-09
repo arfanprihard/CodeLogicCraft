@@ -14,6 +14,7 @@ public class LevelPage : MonoBehaviour
         public Button[] levels = new Button[5];
         public GameObject[] locklevels = new GameObject[5];
     }
+    public GameObject sertifikatPage;
     public TMP_Text topText;
     public TMP_Text totalBintangTxt;
     public Button homebt;
@@ -22,14 +23,21 @@ public class LevelPage : MonoBehaviour
     void Start()
     {
         totalBintangTxt.text = SaveLoadSystem.Instance.GetTotalBintang() + "/60";
-        homebt.onClick.AddListener(() => SceneManager.LoadScene("MainMenu"));
+        homebt.onClick.AddListener(() => SceneManager.LoadSceneAsync("MainMenu"));
 
         int tingkatanKesulitanSekarang = PlayerPrefs.GetInt("TingkatKesulitan");
 
-        // Loop setiap PerLevel dalam array perlevel
         int indexTingkatKesulitan = 0;
         foreach (PerTingkatKesulitan perTingkatKesulitan in perTingkatKesulitans)
         {
+            if (tingkatanKesulitanSekarang == 5)
+            {
+                sertifikatPage.SetActive(true);
+                topText.transform.parent.gameObject.SetActive(false);
+                totalBintangTxt.transform.parent.gameObject.SetActive(false);
+                perTingkatKesulitan.tingkatKesulitan.SetActive(false);
+            }
+            else
             if (indexTingkatKesulitan == tingkatanKesulitanSekarang - 1)
             {
                 perTingkatKesulitan.tingkatKesulitan.SetActive(true);
@@ -116,19 +124,19 @@ public class LevelPage : MonoBehaviour
         Debug.Log("Button Story di Klik dengan nama button = " + namaButton + ", Dengan tingkat Kesulitan = " + tingkatKesulitan);
         if (namaButton == "mulaiDasar")
         {
-            SceneManager.LoadScene("StoryDasar");
+            SceneManager.LoadSceneAsync("StoryDasar");
         }
         else if (namaButton == "mulaiPerulangan")
         {
-            SceneManager.LoadScene("StoryPerulangan");
+            SceneManager.LoadSceneAsync("StoryPerulangan");
         }
         else if (namaButton == "mulaiPercabangan")
         {
-            SceneManager.LoadScene("StoryPercabangan");
+            SceneManager.LoadSceneAsync("StoryPercabangan");
         }
         else if (namaButton == "mulaiMethod")
         {
-            SceneManager.LoadScene("StoryMethod");
+            SceneManager.LoadSceneAsync("StoryMethod");
         }
 
     }
@@ -137,7 +145,7 @@ public class LevelPage : MonoBehaviour
         Debug.Log($"Tingkat Kesulitan: {tingkatKesulitan}, Level: {level} diklik");
         PlayerPrefs.SetInt("TingkatKesulitan", tingkatKesulitan);
         PlayerPrefs.SetInt("Level", level);
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadSceneAsync("InGame");
     }
 
     private bool StorySudahKebuka(int tingkatKesulitan)

@@ -3703,7 +3703,7 @@ MonoBehaviour:
   m_Name: AnimationPlayableAsset(Clone)
   m_EditorClassIdentifier: 
   m_Clip: {fileID: -203655887218126122, guid: b3d1bab592314f348a4337136b88fe67, type: 3}
-  m_Position: {x: 4.7522078, y: 0.080359824, z: 2.4222987}
+  m_Position: {x: 3.952033, y: 0.059081506, z: 2.96686}
   m_EulerAngles: {x: -5.389, y: -53.261, z: 7.191}
   m_UseTrackMatchFields: 1
   m_MatchTargetFields: 63

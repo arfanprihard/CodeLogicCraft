@@ -138,8 +138,9 @@ public class Win : MonoBehaviour
                 if (kamera.transform.childCount > 0)
                 {
                     Transform childPertama = kamera.transform.GetChild(0);
-
                     konfeti = childPertama.GetComponent<ParticleSystem>();
+                    konfeti.transform.localPosition = new Vector3(0f, 3f, 8f);
+                    konfeti.transform.localRotation = Quaternion.identity;
                 }
                 else
                 {

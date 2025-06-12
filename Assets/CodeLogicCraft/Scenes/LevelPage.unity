@@ -1617,7 +1617,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sempurna\n(60/60 Bintang)
+  m_text: Master Logika\n(60/60 Bintang)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24f3fdd499296574580e3c8b1b2c4bd9, type: 2}
   m_sharedMaterial: {fileID: 2990884269307281884, guid: 24f3fdd499296574580e3c8b1b2c4bd9, type: 2}
@@ -10903,8 +10903,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Atas keberhasilan Anda menyelesaikan seluruh tantangan dalam game edukasi
-    <i>CodeLogicCraft 2.0</i>,\ndengan pencapaian
+  m_text: 'Atas keberhasilan Anda menyelesaikan seluruh tantangan \ndalam game edukasi
+    <i>CodeLogicCraft 2.0</i>,\ndan berhasil meraih predikat:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3e0d810b05212cf468c9fa1f4ffb54a8, type: 2}
   m_sharedMaterial: {fileID: -4291829486294119788, guid: 3e0d810b05212cf468c9fa1f4ffb54a8, type: 2}

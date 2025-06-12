@@ -19,11 +19,11 @@ public class SertifikatManager : MonoBehaviour
             namePlayer.text = SaveLoadSystem.Instance.GetNama();
             if (totalBintang >= 60)
             {
-                nilai.text = "Sempurna\n(" + totalBintang + "/60 Bintang)";
+                nilai.text = "Master Logika\n(" + totalBintang + "/60 Bintang)";
             }
             else
             {
-                nilai.text = "Baik\n(" + totalBintang + "/60 Bintang)";
+                nilai.text = "Petarung Algoritma\n(" + totalBintang + "/60 Bintang)";
             }
 
         }

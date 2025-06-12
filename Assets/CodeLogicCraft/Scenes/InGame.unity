@@ -134312,7 +134312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kamu belum berhasil menemukan solusi yang efisien. Silahkan coba lagi!
+  m_text: Data menunjukkan kesalahan logika. Silakan perbaiki dan coba lagi!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 353dbc7ca79d29940aa36f1ffd66eda1, type: 2}
   m_sharedMaterial: {fileID: -7215014856660445706, guid: 353dbc7ca79d29940aa36f1ffd66eda1, type: 2}

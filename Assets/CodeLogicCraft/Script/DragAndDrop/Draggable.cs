@@ -24,6 +24,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private Canvas canvas;
 
 
+
     void Start()
     {
         canvas = GetComponentInParent<Canvas>();
@@ -38,12 +39,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             audioButtonMasuk.volume = 0.7f;
             audioButtonKeluar.volume = 0.7f;
         }
-
-    }
-
-    void Update()
-    {
-
 
     }
 
@@ -135,9 +130,28 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         if (isDragging && currentClone != null)
         {
-            // Mengikuti posisi kursor
-            cloneRectTransform.position = eventData.position;
-            CheckRaycastDropZone(eventData);
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                Vector2 offset = new Vector2(0, 200);
+                Vector2 adjustedPosition = eventData.position + offset;
+
+                // Geser posisi klon
+                cloneRectTransform.position = adjustedPosition;
+
+                // Buat salinan sementara PointerEventData untuk raycast dengan posisi offset
+                PointerEventData tempEventData = new PointerEventData(EventSystem.current)
+                {
+                    position = adjustedPosition
+                };
+
+                CheckRaycastDropZone(tempEventData); // pakai temp data
+            }
+            else
+            {
+                // Mengikuti posisi kursor
+                cloneRectTransform.position = eventData.position;
+                CheckRaycastDropZone(eventData);
+            }
         }
     }
 

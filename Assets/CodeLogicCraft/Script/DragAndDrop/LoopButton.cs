@@ -30,8 +30,6 @@ public class LoopButton : MonoBehaviour
         contentSizeFitter.enabled = false;
         contentSizeFitter.enabled = true;
 
-        // Paksa pembaruan layout
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform);
         if (gameObject.transform.childCount > 2)
         {
             isi.SetActive(false);

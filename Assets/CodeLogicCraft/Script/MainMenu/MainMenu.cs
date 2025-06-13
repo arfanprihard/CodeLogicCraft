@@ -43,6 +43,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
         Debug.Log("Persistent Data Path: " + Application.persistentDataPath);
 
         apakahAdaData = SaveLoadSystem.Instance.ApakahAdaData();

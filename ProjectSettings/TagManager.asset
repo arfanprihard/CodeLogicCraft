@@ -6,8 +6,6 @@ TagManager:
   tags:
   - DropZone
   - Button
-  - looping
-  - IsiLoop
   - PlaceHolder
   - Character
   - Item
@@ -17,6 +15,7 @@ TagManager:
   - Kiri
   - LoopButton
   - PercabanganButton
+  - Water
   layers:
   - Default
   - TransparentFX

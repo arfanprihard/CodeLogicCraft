@@ -15,6 +15,7 @@ public class Win : MonoBehaviour
     [SerializeField] GameObject Body, Top, Bintang1, Bintang2, Bintang3;
     private ParticleSystem konfeti;
     private MovementCharacter movementCharacter;
+    public GameObject endingTransition;
     public Button restartButton;
     public Button nextButton;
     private InGameManager inGameManager;
@@ -58,28 +59,12 @@ public class Win : MonoBehaviour
     }
     void FullScreenEnding()
     {
-        // 1. Cari Canvas di scene
-        Canvas canvas = FindFirstObjectByType<Canvas>();
-        if (canvas == null)
+        if (endingTransition == null)
         {
-            Debug.LogError("Canvas tidak ditemukan!");
+            Debug.LogError("Transition tidak ditemukan!");
             return;
         }
-
-        // 2. Buat GameObject baru
-        GameObject blackOverlay = new GameObject("BlackOverlay");
-        blackOverlay.transform.SetParent(canvas.transform, false);
-
-        // 3. Tambahkan komponen Image
-        Image img = blackOverlay.AddComponent<Image>();
-        img.color = Color.black;
-
-        // 4. Atur ukuran agar stretch ke seluruh layar
-        RectTransform rect = blackOverlay.GetComponent<RectTransform>();
-        rect.anchorMin = Vector2.zero;   // (0,0)
-        rect.anchorMax = Vector2.one;    // (1,1)
-        rect.offsetMin = Vector2.zero;
-        rect.offsetMax = Vector2.zero;
+        endingTransition.SetActive(true);
     }
     void Next()
     {
